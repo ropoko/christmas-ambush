@@ -15,6 +15,10 @@ local Player = {
 	shoot_speed = 4
 }
 
+local Shoot = {
+	default_size = 5
+}
+
 function Player:move()
 	local last_movement = {}
 
@@ -73,13 +77,11 @@ function Player:dash(direction, signal)
 end
 
 function Player:shoot()
-	local shoot = {}
-
-	local execute = {
-		['-y'] = function() end,
-		['-x'] = function() end,
-		['+y'] = function() end,
-		['+x'] = function() end
+	local shoot = {
+		x = Player.x,
+		y = Player.y,
+		size = Shoot.default_size,
+		direction = Player.last_direction
 	}
 
 	table.insert(Player.shoots, shoot)
