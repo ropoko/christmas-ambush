@@ -8,7 +8,11 @@ local Player = {
 	height = 20,
 	speed = 2,
 	dash_interval = 2, -- seconds
-	last_dash = 0
+	last_dash = 0,
+	dash_distance = 15,
+	last_direction = '',
+	shoots = {},
+	shoot_speed = 4
 }
 
 function Player:move()
@@ -19,6 +23,8 @@ function Player:move()
 
 		last_movement.direction = 'y'
 		last_movement.signal = '-'
+
+		Player.last_direction = '-y'
 	end
 
 	if love.keyboard.isDown('s') then
@@ -26,6 +32,8 @@ function Player:move()
 
 		last_movement.direction = 'y'
 		last_movement.signal = '+'
+
+		Player.last_direction = '+y'
 	end
 
 	if love.keyboard.isDown('a') then
@@ -33,6 +41,8 @@ function Player:move()
 
 		last_movement.direction = 'x'
 		last_movement.signal = '-'
+
+		Player.last_direction = '-x'
 	end
 
 	if love.keyboard.isDown('d') then
@@ -40,6 +50,8 @@ function Player:move()
 
 		last_movement.direction = 'x'
 		last_movement.signal = '+'
+
+		Player.last_direction = '+x'
 	end
 
 	self:dash(last_movement.direction, last_movement.signal)
@@ -51,13 +63,26 @@ function Player:dash(direction, signal)
 		['+'] = function (x,y) return x + y end,
 	}
 
-	if love.keyboard.isDown('space') then
+	if love.keyboard.isDown('lctrl') then
 		if (os.time() - Player.last_dash) > Player.dash_interval then
 			Player.last_dash = os.time()
 
-			Player[direction] = execute[signal](Player[direction], 5)
+			Player[direction] = execute[signal](Player[direction], Player.dash_distance)
 		end
 	end
+end
+
+function Player:shoot()
+	local shoot = {}
+
+	local execute = {
+		['-y'] = function() end,
+		['-x'] = function() end,
+		['+y'] = function() end,
+		['+x'] = function() end
+	}
+
+	table.insert(Player.shoots, shoot)
 end
 
 return Player

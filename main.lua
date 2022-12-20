@@ -8,6 +8,10 @@ function love.update(dt)
 	if love.keyboard.isDown('w', 'a', 's', 'd') then
 		Player:move()
 	end
+
+	if love.keyboard.isDown('space') then
+		Player:shoot()
+	end
 end
 
 function love.draw()
