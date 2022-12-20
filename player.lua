@@ -1,4 +1,4 @@
-
+local Shoot = require('shoot')
 local Utils = require('utils')
 
 local Player = {
@@ -10,13 +10,7 @@ local Player = {
 	dash_interval = 2, -- seconds
 	last_dash = 0,
 	dash_distance = 15,
-	last_direction = '',
-	shoots = {},
-	shoot_speed = 4
-}
-
-local Shoot = {
-	default_size = 5
+	last_direction = ''
 }
 
 function Player:move()
@@ -84,7 +78,7 @@ function Player:shoot()
 		direction = Player.last_direction
 	}
 
-	table.insert(Player.shoots, shoot)
+	table.insert(Shoot.all_shoots, shoot)
 end
 
 return Player

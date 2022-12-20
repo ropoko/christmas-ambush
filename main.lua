@@ -1,4 +1,5 @@
-local Player = require('Player')
+local Shoot = require('shoot')
+local Player = require('player')
 
 -- only one shoot per click
 function love.keypressed(key)
@@ -16,33 +17,13 @@ function love.update(dt)
 		Player:move()
 	end
 
-	-- if love.keyboard.isDown('space') then
-	-- 	Player:shoot()
-	-- end
-
-	for _,shoot in pairs(Player.shoots) do
-		if shoot.direction == '-y' then
-			shoot.y = shoot.y - Player.shoot_speed
-		end
-
-		if shoot.direction == '+y' then
-			shoot.y = shoot.y + Player.shoot_speed
-		end
-
-		if shoot.direction == '-x' then
-			shoot.x = shoot.x - Player.shoot_speed
-		end
-
-		if shoot.direction == '+x' then
-			shoot.x = shoot.x + Player.shoot_speed
-		end
-	end
+	Shoot:move()
 end
 
 function love.draw()
 	love.graphics.rectangle('fill', Player.x, Player.y, Player.width, Player.height)
 
-	for _,shoot in pairs(Player.shoots) do
+	for _,shoot in pairs(Shoot.all_shoots) do
 		love.graphics.circle('fill', shoot.x, shoot.y, shoot.size, shoot.size)
 	end
 end
