@@ -7,6 +7,7 @@ music:setVolume(0.1)
 
 function love.mousepressed(x,y,button)
 	if button == 1 then
+		music:stop()
 		CONTEXT:change('game')
 	end
 end
