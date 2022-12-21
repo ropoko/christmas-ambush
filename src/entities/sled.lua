@@ -1,4 +1,4 @@
-local Utils = require('utils')
+local Utils = require('src.utils')
 
 local Sled = {
 	x = Utils:center(70,70).width,

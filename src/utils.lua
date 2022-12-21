@@ -1,4 +1,4 @@
-local Constants = require('constants')
+local Constants = require('src.constants')
 
 local Utils = {}
 

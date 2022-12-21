@@ -1,5 +1,5 @@
-local Shoot = require('shoot')
-local Utils = require('utils')
+local Shoot = require('src.entities.shoot')
+local Utils = require('src.utils')
 
 local Player = {
 	x = Utils:center(20,20).width,

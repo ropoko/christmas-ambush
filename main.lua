@@ -1,7 +1,7 @@
-local Shoot = require('shoot')
-local Player = require('player')
-local Sled = require('sled')
-local Utils = require('utils')
+local Shoot = require('src.entities.shoot')
+local Player = require('src.entities.player')
+local Sled = require('src.entities.sled')
+local Utils = require('src.utils')
 
 -- only one shoot per click
 function love.keypressed(key)
