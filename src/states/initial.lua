@@ -5,6 +5,8 @@ local Initial = {}
 local music = love.audio.newSource('assets/audio/xmas-jingle-intro.mp3', 'stream')
 music:setVolume(0.1)
 
+local background_img = love.graphics.newImage('assets/img/initial/background-menu.png')
+
 function love.mousepressed(x,y,button)
 	if button == 1 then
 		music:stop()
