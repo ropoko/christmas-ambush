@@ -5,6 +5,13 @@ local Utils = require('src.utils')
 
 local Game = {}
 
+-- only one shoot per click
+function love.keypressed(key)
+	if key == 'space' then
+		Player:shoot()
+	end
+end
+
 function Game:load()
 	Sled.life = Sled.max_life
 end
@@ -31,13 +38,6 @@ function Game:draw()
 	end
 
 	Sled:draw()
-end
-
--- only one shoot per click
-function love.keypressed(key)
-	if key == 'space' then
-		Player:shoot()
-	end
 end
 
 return Game
