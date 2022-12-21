@@ -1,7 +1,8 @@
 local Shoot = {
 	speed = 4,
 	default_size = 5,
-	all_shoots = {}
+	all_shoots = {},
+	damage = 7
 }
 
 function Shoot:move()

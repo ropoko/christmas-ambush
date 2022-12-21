@@ -1,5 +1,7 @@
 local Shoot = require('shoot')
 local Player = require('player')
+local Sled = require('sled')
+local Utils = require('utils')
 
 -- only one shoot per click
 function love.keypressed(key)
@@ -23,7 +25,15 @@ end
 function love.draw()
 	love.graphics.rectangle('fill', Player.x, Player.y, Player.width, Player.height)
 
-	for _,shoot in pairs(Shoot.all_shoots) do
-		love.graphics.circle('fill', shoot.x, shoot.y, shoot.size, shoot.size)
+	for i,shoot in pairs(Shoot.all_shoots) do
+		love.graphics.rectangle('fill', shoot.x, shoot.y, shoot.size, shoot.size)
+
+		if Utils:has_collision(Sled.x,Sled.y,Sled.width,Sled.height,
+					shoot.x,shoot.y,shoot.size,shoot.size) then
+			Sled:handle_attack(shoot.damage)
+			table.remove(Shoot.all_shoots, i)
+		end
 	end
+
+	Sled:draw()
 end

@@ -75,7 +75,8 @@ function Player:shoot()
 		x = Player.x,
 		y = Player.y,
 		size = Shoot.default_size,
-		direction = Player.last_direction
+		direction = Player.last_direction,
+		damage = Shoot.damage
 	}
 
 	table.insert(Shoot.all_shoots, shoot)
