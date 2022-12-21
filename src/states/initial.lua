@@ -1,4 +1,5 @@
 local Utils = require('src.utils')
+local Camera = require('lib.camera')
 
 local Initial = {}
 
@@ -19,8 +20,16 @@ function Initial:update()
 end
 
 function Initial:draw()
-	local center = Utils:center(50,50)
+	local sx = love.graphics.getWidth() / background_img:getWidth()
+	local sy = love.graphics.getHeight() / background_img:getHeight()
 
+	for i = 0, Camera.width / background_img:getWidth() do
+		for j = 0, Camera.height / background_img:getHeight() do
+			love.graphics.draw(background_img, i * background_img:getWidth(), j * background_img:getHeight(), 0, sx,sy)
+		end
+	end
+
+	local center = Utils:center(50,50)
 	love.graphics.print('press any button to start...', center.width, center.height)
 end
 
