@@ -22,9 +22,11 @@ function Sled:lifebar()
 end
 
 function Sled:handle_attack(damage)
-	if self.life >= 0 then
-		self.life = self.life - damage
+	if self.life <= 0 then
+		CONTEXT:change('game_over')
 	end
+
+	self.life = self.life - damage
 end
 
 return Sled
