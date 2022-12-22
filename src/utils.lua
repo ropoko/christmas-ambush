@@ -17,6 +17,19 @@ function Utils:center(obj_width, obj_height)
 	return central
 end
 
+function Utils:top_right(margin_right, margin_top)
+	local width = Constants.WINDOW_SETTINGS.width
+	-- local height = Constants.WINDOW_SETTINGS.height
+
+	margin_right = margin_right or 0
+	margin_top = margin_top or 0
+
+	return {
+		width = width - margin_right * 10,
+		height = margin_top
+	}
+end
+
 function Utils:has_collision(x1, y1, w1, h1, x2, y2, w2, h2)
 	return (
 		x2 < x1 + w1 and

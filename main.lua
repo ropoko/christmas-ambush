@@ -1,10 +1,12 @@
+local Suit = require('lib.suit')
 local Camera = require('lib.camera')
 local Context = require('src.context')
+local Constants = require('src.constants')
 
 function love.load()
 	CONTEXT = Context;
-	love.window.setMode(1280, 657, { resizable = true })
-	Camera:setLockedResolution(1280, 657)
+	love.window.setMode(Constants.WINDOW_SETTINGS.width, Constants.WINDOW_SETTINGS.height, { resizable = true })
+	-- Camera:setLockedResolution(Constants.WINDOW_SETTINGS.width, Constants.WINDOW_SETTINGS.height)
 end
 
 function love.update(dt)
@@ -12,7 +14,7 @@ function love.update(dt)
 end
 
 function love.draw()
-	Camera:set()
+	-- Camera:set()
 	CONTEXT:draw()
 
 	-- TEST: resolution
@@ -24,5 +26,12 @@ function love.draw()
 	-- love.graphics.setColor(1,1,1)
 	-- END TEST ------------------
 
-	Camera:unset()
+	Suit.draw()
+
+	-- Camera:unset()
+end
+
+function love.resize(w,h)
+	Constants.WINDOW_SETTINGS.width = w
+	Constants.WINDOW_SETTINGS.height = h
 end

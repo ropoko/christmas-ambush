@@ -1,7 +1,7 @@
 local Constants = {
 	WINDOW_SETTINGS = {
-		width = 600,
-		height = 600
+		width = 1280,
+		height = 720
 	}
 }
 
