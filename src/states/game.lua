@@ -3,6 +3,7 @@ local Shoot = require('src.entities.shoot')
 local Sled = require('src.entities.sled')
 local Utils = require('src.utils')
 local Keys = require('src.entities.keys')
+local Enemy = require('src.entities.enemy')
 
 local Game = {}
 
@@ -37,6 +38,8 @@ function Game:draw()
 			table.remove(Shoot.all_shoots, i)
 		end
 	end
+
+	Enemy:draw(5)
 
 	Sled:draw()
 end

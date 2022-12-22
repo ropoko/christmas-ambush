@@ -3,8 +3,11 @@ local Context = require('src.context')
 local Constants = require('src.constants')
 
 function love.load()
+	math.randomseed(os.clock())
+
 	CONTEXT = Context;
 	love.window.setMode(Constants.WINDOW_SETTINGS.width, Constants.WINDOW_SETTINGS.height, { resizable = true })
+	love.window.setTitle('Christmas Ambush')
 end
 
 function love.update(dt)
