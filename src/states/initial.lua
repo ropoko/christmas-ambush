@@ -19,6 +19,8 @@ local controls_wasd = love.graphics.newImage('assets/img/initial/controls_wasd.p
 local controls_p = love.graphics.newImage('assets/img/initial/controls_p.png')
 local controls_space = love.graphics.newImage('assets/img/initial/controls_space.png')
 
+local logo_img = love.graphics.newImage('assets/img/initial/logo.png')
+
 function Initial:update()
 	music:play()
 end
@@ -33,6 +35,8 @@ function Initial:draw()
 			love.graphics.draw(background_img, i * background_img:getWidth(), j * background_img:getHeight(), 0, background_scale_x, background_scale_y)
 		end
 	end
+
+	Initial:draw_logo()
 
 	if Constants.WINDOW_SETTINGS.height >= 600 then
 		Initial:draw_opacity_bar()
@@ -88,24 +92,68 @@ function Initial:draw_controls()
 		y = 0.8
 	}
 
+	local default_margin = {
+		x = 50,
+		y = 120
+	}
+
 	local control_wasd_pos = {
 		x = 50,
 		y = Constants.WINDOW_SETTINGS.height - 180
 	}
 
 	local control_space_pos = {
-		x = controls_wasd:getWidth() + 50,
-		y = Constants.WINDOW_SETTINGS.height - 120
+		x = controls_wasd:getWidth() + default_margin.x,
+		y = Constants.WINDOW_SETTINGS.height - default_margin.y
 	}
 
 	local control_p_pos = {
-		x = controls_space:getWidth() + controls_wasd:getWidth() + 50,
-		y = Constants.WINDOW_SETTINGS.height - 120
+		x = controls_space:getWidth() + controls_wasd:getWidth() + default_margin.x,
+		y = Constants.WINDOW_SETTINGS.height - default_margin.y
 	}
 
 	love.graphics.draw(controls_wasd, control_wasd_pos.x, control_wasd_pos.y, 0, default_scale.x, default_scale.y)
 	love.graphics.draw(controls_space, control_space_pos.x, control_space_pos.y, 0, default_scale.x, default_scale.y)
 	love.graphics.draw(controls_p, control_p_pos.x, control_p_pos.y, 0, default_scale.x, default_scale.y)
+
+	-- draw separator
+	love.graphics.line(
+		control_p_pos.x + default_margin.x * 3,
+		control_p_pos.y - 20,
+		control_p_pos.x + default_margin.x * 3,
+		control_p_pos.y + 100
+	)
+
+	love.graphics.setLineWidth(5)
+
+	Initial:draw_names({ x=control_p_pos.x + default_margin.x * 3, y=control_p_pos.y - 20 })
+end
+
+function Initial:draw_names(last_position)
+	local font = love.graphics.newFont('assets/fonts/Poppins-Regular.ttf', 20)
+
+	local x = last_position.x + 50
+	local y = last_position.y
+
+	local color = { normal = {fg = {1,1,1}} }
+
+	Suit.Label('Caique Jacomini', { color=color, font=font }, x, y)
+	Suit.Label('Henrique Moraes',{ color=color, font=font },x,y + 25)
+	Suit.Label('Pablo Maganha',{ color=color, font=font },x,y + 50)
+	Suit.Label('Rodrigo Maganha',{ color=color, font=font },x,y + 75)
+end
+
+function Initial:draw_logo()
+	love.graphics.push()
+
+	love.graphics.scale(0.6,0.6)
+
+	local logo_center = Utils:center(logo_img:getWidth(),logo_img:getHeight())
+	love.graphics.draw(logo_img, logo_center.width + 425, logo_center.height - 30)
+
+	love.graphics.scale(1,1)
+
+	love.graphics.pop()
 end
 
 return Initial
