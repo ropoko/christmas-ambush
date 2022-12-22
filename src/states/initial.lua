@@ -1,6 +1,5 @@
 local Suit = require('lib.suit')
 local Utils = require('src.utils')
--- local Camera = require('lib.camera')
 local Constants = require('src.constants')
 
 local Initial = {}

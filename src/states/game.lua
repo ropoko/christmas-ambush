@@ -25,7 +25,7 @@ function Game:update(dt)
 end
 
 function Game:draw()
-	love.graphics.rectangle('fill', Player.x, Player.y, Player.width, Player.height)
+	love.graphics.draw(Player.img, Player.x, Player.y)
 
 	for i,shoot in pairs(Shoot.all_shoots) do
 		love.graphics.rectangle('fill', shoot.x, shoot.y, shoot.size, shoot.size)

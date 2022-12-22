@@ -1,11 +1,12 @@
 local Shoot = require('src.entities.shoot')
 local Utils = require('src.utils')
 
+local gingerbread = love.graphics.newImage('assets/img/game/gingerbread.png')
+
 local Player = {
 	x = Utils:center(20,20).width,
 	y = Utils:center(20,20).height,
-	width = 20,
-	height = 20,
+	img = gingerbread,
 	speed = 2,
 	dash_interval = 2, -- seconds
 	last_dash = 0,
