@@ -2,12 +2,13 @@ local Player = require('src.entities.player')
 local Shoot = require('src.entities.shoot')
 local Sled = require('src.entities.sled')
 local Utils = require('src.utils')
+local Keys = require('src.entities.keys')
 
 local Game = {}
 
 -- only one shoot per click
 function love.keypressed(key)
-	if key == 'space' then
+	if key == Keys.shoot then
 		Player:shoot()
 	end
 end
@@ -17,7 +18,7 @@ function Game:load()
 end
 
 function Game:update(dt)
-	if love.keyboard.isDown('w', 'a', 's', 'd') then
+	if love.keyboard.isDown(unpack(Keys.move)) then
 		Player:move()
 	end
 

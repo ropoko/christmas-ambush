@@ -1,5 +1,6 @@
 local Shoot = require('src.entities.shoot')
 local Utils = require('src.utils')
+local Keys = require('src.entities.keys')
 
 local gingerbread = love.graphics.newImage('assets/img/game/gingerbread.png')
 
@@ -62,7 +63,7 @@ function Player:dash(direction, signal)
 		['+'] = function (x,y) return x + y end,
 	}
 
-	if love.keyboard.isDown('lctrl') then
+	if love.keyboard.isDown(Keys.dash) then
 		if (os.time() - Player.last_dash) > Player.dash_interval then
 			Player.last_dash = os.time()
 
