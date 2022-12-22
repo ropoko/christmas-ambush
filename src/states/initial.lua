@@ -35,8 +35,10 @@ function Initial:draw()
 		end
 	end
 
-	Initial:draw_opacity_bar()
-	Initial:draw_controls()
+	if Constants.WINDOW_SETTINGS.height >= 600 then
+		Initial:draw_opacity_bar()
+		Initial:draw_controls()
+	end
 
 	local button_center = Utils:center(button_play:getWidth(),button_play:getHeight())
 	local play_button = Suit.ImageButton(button_play, { hovered = button_play_hover }, button_center.width, button_center.height + 10)
