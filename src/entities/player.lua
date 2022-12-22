@@ -12,7 +12,9 @@ local Player = {
 	dash_interval = 2, -- seconds
 	last_dash = 0,
 	dash_distance = 15,
-	last_direction = ''
+	last_direction = '',
+	life = 150,
+	max_life = 150
 }
 
 function Player:move()
@@ -82,6 +84,26 @@ function Player:shoot()
 	}
 
 	table.insert(Shoot.all_shoots, shoot)
+end
+
+function Player:handle_attack(damage)
+	if self.life <= 0 then
+		CONTEXT:change('game_over')
+	end
+
+	self.life = self.life - damage
+end
+
+function Player:lifebar()
+	love.graphics.setColor(255/255,29/255,29/255)
+	love.graphics.rectangle("line", self.x, self.y - 10, self.max_life, 5)
+	love.graphics.rectangle("fill", self.x, self.y - 10, self.life, 5)
+	love.graphics.setColor(255,255,255)
+end
+
+function Player:draw()
+	self:lifebar()
+	love.graphics.draw(self.img, self.x, self.y)
 end
 
 return Player

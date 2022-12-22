@@ -27,7 +27,7 @@ function Game:update(dt)
 end
 
 function Game:draw()
-	love.graphics.draw(Player.img, Player.x, Player.y)
+	Player:draw()
 
 	Shoot:draw()
 	Enemy:draw(5)
@@ -49,6 +49,14 @@ function Game:draw()
 		if Utils:has_collision(enemy.x,enemy.y,Enemy.width,Enemy.height,
 				Sled.x,Sled.y,Sled.width,Sled.height) then
 			Sled:handle_attack(enemy.damage)
+		end
+	end
+
+	-- collision player x enemies
+	for _,enemy in pairs(Enemy.all_enemies) do
+		if Utils:has_collision(enemy.x,enemy.y,Enemy.width,Enemy.height,
+				Player.x,Player.y,Player.img:getWidth(),Player.img:getHeight()) then
+			Player:handle_attack(enemy.damage)
 		end
 	end
 end
