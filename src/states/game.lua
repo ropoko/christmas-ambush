@@ -12,7 +12,21 @@ function love.keypressed(key)
 	if key == Keys.shoot then
 		Player:shoot()
 	end
+
+	if key == Keys.pause then
+		if CONTEXT.current == 'pause' then
+			CONTEXT:change('game')
+		else
+			CONTEXT:change('pause')
+		end
+	end
 end
+
+-- table.insert(KEYPRESSED, function(key)
+-- 	if key == Keys.shoot then
+-- 		Player:shoot()
+-- 	end
+-- end)
 
 function Game:load()
 	Sled.life = Sled.max_life

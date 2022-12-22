@@ -2,6 +2,8 @@ local Suit = require('lib.suit')
 local Context = require('src.context')
 local Constants = require('src.constants')
 
+-- KEYPRESSED = {}
+
 function love.load()
 	math.randomseed(os.clock())
 
@@ -23,3 +25,9 @@ function love.resize(w,h)
 	Constants.WINDOW_SETTINGS.width = w
 	Constants.WINDOW_SETTINGS.height = h
 end
+
+-- function love.keypressed(key)
+-- 	for _,fn in ipairs(KEYPRESSED) do
+--     fn(key)
+--   end
+-- end

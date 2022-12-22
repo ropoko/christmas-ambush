@@ -1,12 +1,14 @@
 local Initial = require('src.states.initial')
 local Game = require('src.states.game')
 local GameOver = require('src.states.game-over')
+local Pause = require('src.states.pause')
 
 local Context = {
 	states = {
 		initial = Initial,
 		game = Game,
-		game_over = GameOver
+		game_over = GameOver,
+		pause = Pause
 	},
 
 	current = 'initial',
