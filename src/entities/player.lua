@@ -181,7 +181,10 @@ function Player:draw()
 		Player:death()
 
 		self.current_animation.onLoop = function()
-			CONTEXT:change('game_over')
+			love.graphics.captureScreenshot(function(image)
+				SCREENSHOT = image
+				CONTEXT:change('game_over')
+			end);
 		end
 	end
 

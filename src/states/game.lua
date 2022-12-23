@@ -18,11 +18,10 @@ function love.keypressed(key)
 		Player:shoot()
 	end
 
-	if key == Keys.pause then
+	if key == Keys.pause and CONTEXT.current ~= 'game_over' then
 		if CONTEXT.current == 'pause' then
 			CONTEXT:change('game')
 		else
-			-- love.graphics.captureScreenshot('screenshot.png')
 			love.graphics.captureScreenshot(function(image)
 				SCREENSHOT = image
 				CONTEXT:change('pause')
