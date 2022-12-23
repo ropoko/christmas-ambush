@@ -7,6 +7,8 @@ local Shoot = require('src.entities.shoot')
 local Animation = require('src.animations.animation')
 local Assets = require('src.animations.assets')
 
+ENEMIES_KILLED = 0
+
 local EnemyCookie = {
 	x = 0,
 	y = 0,
@@ -179,6 +181,7 @@ function EnemyCookie:draw(qty)
 
 			enemy.current_animation.onLoop = function()
 				table.remove(self.all_enemies, enemy.id)
+				ENEMIES_KILLED = ENEMIES_KILLED + 1
 			end
 		end
 

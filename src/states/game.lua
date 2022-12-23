@@ -39,6 +39,8 @@ function Game:load()
 end
 
 function Game:update(dt)
+	self.enemies_killed = ENEMIES_KILLED
+
 	Elf:update(dt)
 
 	Player:update(dt)
@@ -119,11 +121,15 @@ function Game:draw_trees()
 end
 
 function Game:draw_wave()
-	local text_wave = 'Wave:'..self.actual_wave..'/'..self.number_of_waves
+	local text_wave = 'Wave: '..self.actual_wave..'/'..self.number_of_waves
+
+	local text_enemies = 'Enemies Killed: '..self.enemies_killed..'/'..self.enemies_per_wave
+
+	local text = text_wave..' - '..text_enemies
 
 	local color = { normal = {fg = {1,0,0}} }
 	local center_label = Utils:left_bottom(50,25)
-	Suit.Label(text_wave, { color=color, font=MEDIUM_BASE_FONT }, center_label.width, center_label.height - 50)
+	Suit.Label(text, { color=color, font=MEDIUM_BASE_FONT }, center_label.width, center_label.height - 50)
 end
 
 return Game

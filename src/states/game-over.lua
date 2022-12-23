@@ -3,7 +3,7 @@ local Utils = require('src.utils')
 local Constants = require('src.constants')
 
 local GameOver = {
-	button_try_again = love.graphics.newImage('assets/img/pause/button-resume.png'),
+	button_try_again = love.graphics.newImage('assets/img/button-try-again.png'),
 	button_exit = love.graphics.newImage('assets/img/pause/button-exit.png')
 }
 
