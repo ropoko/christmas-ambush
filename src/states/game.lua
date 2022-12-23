@@ -39,6 +39,10 @@ function Game:load()
 end
 
 function Game:update(dt)
+	if TRY_AGAIN == true then
+		Game:try_again()
+	end
+
 	self.enemies_killed = ENEMIES_KILLED
 
 	Elf:update(dt)
@@ -130,6 +134,15 @@ function Game:draw_wave()
 	local color = { normal = {fg = {1,0,0}} }
 	local center_label = Utils:left_bottom(50,25)
 	Suit.Label(text, { color=color, font=MEDIUM_BASE_FONT }, center_label.width, center_label.height - 50)
+end
+
+function Game:try_again()
+	TRY_AGAIN = false
+
+	Sled.life = Sled.max_life
+	Player.life = Player.max_life
+
+	EnemyCookie:clear_enemies()
 end
 
 return Game

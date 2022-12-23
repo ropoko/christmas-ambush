@@ -29,6 +29,7 @@ function GameOver:draw()
 	local exit = Suit.ImageButton(self.button_exit, button_center.width + 225, button_center.height + 100)
 
 	if try_again.hit then
+		TRY_AGAIN = true
 		CONTEXT:change('game')
 	end
 

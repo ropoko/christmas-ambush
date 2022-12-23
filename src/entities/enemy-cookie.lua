@@ -243,4 +243,8 @@ function EnemyCookie:collision_sled()
 	end
 end
 
+function EnemyCookie:clear_enemies()
+	self.all_enemies = {}
+end
+
 return EnemyCookie
