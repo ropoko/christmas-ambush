@@ -7,6 +7,8 @@ local Constants = require('src.constants')
 function love.load()
 	math.randomseed(os.clock())
 
+	love.filesystem.setIdentity('gamejam')
+
 	BASE_FONT = love.graphics.newFont('assets/fonts/Poppins-Regular.ttf', 20)
 
 	CONTEXT = Context;

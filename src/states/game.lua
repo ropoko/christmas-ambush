@@ -17,16 +17,14 @@ function love.keypressed(key)
 		if CONTEXT.current == 'pause' then
 			CONTEXT:change('game')
 		else
-			CONTEXT:change('pause')
+			-- love.graphics.captureScreenshot('screenshot.png')
+			love.graphics.captureScreenshot(function(image)
+				SCREENSHOT = image
+				CONTEXT:change('pause')
+			end);
 		end
 	end
 end
-
--- table.insert(KEYPRESSED, function(key)
--- 	if key == Keys.shoot then
--- 		Player:shoot()
--- 	end
--- end)
 
 function Game:load()
 	Sled.life = Sled.max_life
