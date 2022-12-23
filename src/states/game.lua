@@ -58,12 +58,16 @@ function Game:draw()
 
 	Elf:draw()
 
-	if love.keyboard.isDown('w','a','s','d') then
-		Player.status = 'walk'
+	if Player.life <= 0 then
+		Player.status = 'death'
 	else
-		Player.status = 'idle'
-	end
 
+		if love.keyboard.isDown('w','a','s','d') then
+			Player.status = 'walk'
+		else
+			Player.status = 'idle'
+		end
+	end
 	-- if love.keyboard.isDown('space') then
 	-- 	Player.status = 'dash'
 

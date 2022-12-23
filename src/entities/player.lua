@@ -147,10 +147,6 @@ function Player:shoot()
 end
 
 function Player:handle_attack(damage)
-	if self.life <= 0 then
-		CONTEXT:change('game_over')
-	end
-
 	self.life = self.life - damage
 end
 
@@ -159,6 +155,11 @@ function Player:lifebar()
 	love.graphics.rectangle("line", self.x - 10, self.y - 10, self.max_life, 5)
 	love.graphics.rectangle("fill", self.x - 10, self.y - 10, self.life, 5)
 	love.graphics.setColor(255,255,255)
+end
+
+function Player:death()
+	self.current_animation = Animation.santa.death
+	self.current_img = Assets.santa.death
 end
 
 function Player:draw()
@@ -176,14 +177,30 @@ function Player:draw()
 		Player:idle()
 	end
 
+	if self.status == 'death' then
+		Player:death()
+
+		self.current_animation.onLoop = function()
+			CONTEXT:change('game_over')
+		end
+	end
+
 	self.current_animation:draw(self.current_img, self.x, self.y)
 end
 
 function Player:update(dt)
+	if self.life <= 0 then
+		self.status = 'death'
+	end
+
 	self.current_animation:update(dt)
 end
 
 function Player:collision_enemies()
+	if Player.life <= 0 then
+		return
+	end
+
 	for _,enemy in pairs(EnemyCookie.all_enemies) do
 		if enemy.life > 0 then
 			if Utils:has_collision(enemy.x,enemy.y,EnemyCookie.width,EnemyCookie.height,

@@ -1,6 +1,5 @@
 ---@diagnostic disable: duplicate-set-field
 local Utils = require('src.utils')
-local Constants = require('src.constants')
 local Sled = require('src.entities.sled')
 
 local Shoot = require('src.entities.shoot')
@@ -19,7 +18,7 @@ local EnemyCookie = {
 	-- so I know if the enemy was shot
 	last_life = 0,
 	all_enemies = {},
-	damage = 0.05,
+	damage = 0.1,
 	status = 'walk',
 	current_animation = Animation.enemy_cookie.walk.left,
 	current_img = Assets.enemy_cookie.walk.left,
