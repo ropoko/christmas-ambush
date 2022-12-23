@@ -111,7 +111,7 @@ function Enemy:lifebar(x,y, life)
 end
 
 function Enemy:attack()
-	print('attack')
+
 end
 
 function Enemy:handle_attack(damage, index_enemy)

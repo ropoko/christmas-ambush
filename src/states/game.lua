@@ -4,6 +4,7 @@ local Sled = require('src.entities.sled')
 local Utils = require('src.utils')
 local Keys = require('src.entities.keys')
 local Enemy = require('src.entities.enemy')
+local Constants = require('src.constants')
 
 local Game = {}
 
@@ -27,10 +28,13 @@ function love.keypressed(key)
 end
 
 function Game:load()
-	Sled.life = Sled.max_life
+	Game.background_img = love.graphics.newImage('assets/img/game/background-game.png')
+	Game.tree = love.graphics.newImage('assets/img/game/tree.png')
 end
 
 function Game:update(dt)
+	Player:update(dt)
+
 	if love.keyboard.isDown(unpack(Keys.move)) then
 		Player:move()
 	end
@@ -39,10 +43,14 @@ function Game:update(dt)
 end
 
 function Game:draw()
+	self:draw_background()
 	Player:draw()
+	self:draw_trees()
 
 	Shoot:draw()
+
 	Enemy:draw(5)
+
 	Sled:draw()
 
 	-- collision shoot x enemies
@@ -67,10 +75,29 @@ function Game:draw()
 	-- collision player x enemies
 	for _,enemy in pairs(Enemy.all_enemies) do
 		if Utils:has_collision(enemy.x,enemy.y,Enemy.width,Enemy.height,
-				Player.x,Player.y,Player.img:getWidth(),Player.img:getHeight()) then
+				Player.x,Player.y,Player.current_img:getWidth(),Player.current_img:getHeight()) then
 			Player:handle_attack(enemy.damage)
 		end
 	end
+end
+
+function Game:draw_background()
+	local background_scale_x = love.graphics.getWidth() / self.background_img:getWidth()
+	local background_scale_y = love.graphics.getHeight() / self.background_img:getHeight()
+
+	-- draw background
+	for i = 0, Constants.WINDOW_SETTINGS.width / self.background_img:getWidth() do
+		for j = 0, Constants.WINDOW_SETTINGS.height / self.background_img:getHeight() do
+			love.graphics.draw(self.background_img, i * self.background_img:getWidth(), j * self.background_img:getHeight(), 0, background_scale_x, background_scale_y)
+		end
+	end
+end
+
+function Game:draw_trees()
+	love.graphics.draw(self.tree, 100, 300)
+	love.graphics.draw(self.tree, 50, 100)
+	love.graphics.draw(self.tree, 400, 250)
+	love.graphics.draw(self.tree, 150, 450)
 end
 
 return Game

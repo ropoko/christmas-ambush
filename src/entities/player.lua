@@ -1,20 +1,36 @@
 local Shoot = require('src.entities.shoot')
 local Utils = require('src.utils')
 local Keys = require('src.entities.keys')
+local anim8 = require('lib.anim8')
 
-local gingerbread = love.graphics.newImage('assets/img/game/gingerbread.png')
+local idle_up = love.graphics.newImage('assets/img/game/santa/idle-up.png')
+local grid_idle_up = anim8.newGrid(64, 64, idle_up:getWidth(), idle_up:getHeight())
+local idle_up_animation = anim8.newAnimation(grid_idle_up('1-4', 1), 0.2)
+
+local idle_down = love.graphics.newImage('assets/img/game/santa/idle-down.png')
+local grid_idle_down = anim8.newGrid(64, 64, idle_down:getWidth(), idle_down:getHeight())
+local idle_down_animation = anim8.newAnimation(grid_idle_down('1-4', 1), 0.2)
+
+local idle_left = love.graphics.newImage('assets/img/game/santa/idle-left.png')
+local grid_idle_left = anim8.newGrid(64, 64, idle_left:getWidth(), idle_left:getHeight())
+local idle_left_animation = anim8.newAnimation(grid_idle_left('1-4', 1), 0.2)
+
+local idle_right = love.graphics.newImage('assets/img/game/santa/idle-right.png')
+local grid_idle_right = anim8.newGrid(64, 64, idle_right:getWidth(), idle_right:getHeight())
+local idle_right_animation = anim8.newAnimation(grid_idle_right('1-4', 1), 0.2)
 
 local Player = {
 	x = Utils:center(20,20).width,
 	y = Utils:center(20,20).height,
-	img = gingerbread,
 	speed = 2,
 	dash_interval = 2, -- seconds
 	last_dash = 0,
 	dash_distance = 15,
 	last_direction = '',
 	life = 150,
-	max_life = 150
+	max_life = 150,
+	current_animation = idle_down_animation,
+	current_img = idle_down
 }
 
 function Player:move()
@@ -103,7 +119,12 @@ end
 
 function Player:draw()
 	self:lifebar()
-	love.graphics.draw(self.img, self.x, self.y)
+	self.current_animation:draw(self.current_img, self.x, self.y)
+	-- love.graphics.draw(self.img, self.x, self.y)
+end
+
+function Player:update(dt)
+	self.current_animation:update(dt)
 end
 
 return Player
