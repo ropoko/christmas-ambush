@@ -50,7 +50,8 @@ local Grid = {
 			right = anim8.newGrid(64, 64, Assets.enemy_cookie.death.right:getWidth(), Assets.enemy_cookie.death.right:getHeight())
 		}
 	},
-	sled = anim8.newGrid(100, 60, Assets.sled:getWidth(), Assets.sled:getHeight())
+	sled = anim8.newGrid(100,60, Assets.sled:getWidth(), Assets.sled:getHeight()),
+	sled_smoke = anim8.newGrid(20,20, Assets.sled_smoke:getWidth(), Assets.sled_smoke:getHeight())
 }
 
 return Grid

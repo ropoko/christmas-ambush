@@ -5,6 +5,9 @@ local Utils = require('src.utils')
 local sled_animation = Animation.sled
 local img_sled_animation = Assets.sled
 
+local sled_smoke_animation = Animation.sled_smoke
+local img_sled_smoke_animation = Assets.sled_smoke
+
 local Sled = {
 	x = Utils:center(70,70).width,
 	y = Utils:center(70,70).height,
@@ -15,18 +18,21 @@ local Sled = {
 }
 
 function Sled:draw()
+	sled_smoke_animation:draw(img_sled_smoke_animation, self.x + 70, self.y - 10)
+
 	sled_animation:draw(img_sled_animation, self.x, self.y)
 	self:lifebar()
 end
 
 function Sled:update(dt)
+	sled_smoke_animation:update(dt)
 	sled_animation:update(dt)
 end
 
 function Sled:lifebar()
 	love.graphics.setColor(255/255,29/255,29/255)
-	love.graphics.rectangle("line", self.x, self.y - 10, self.max_life, 5)
-	love.graphics.rectangle("fill", self.x, self.y - 10, self.life, 5)
+	love.graphics.rectangle("line", self.x, self.y + 75, self.max_life, 5)
+	love.graphics.rectangle("fill", self.x, self.y + 75, self.life, 5)
 	love.graphics.setColor(255,255,255)
 end
 

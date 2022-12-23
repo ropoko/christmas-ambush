@@ -47,7 +47,8 @@ local Assets = {
 			right = love.graphics.newImage('assets/img/game/enemy-cookie/death-right.png')
 		}
 	},
-	sled = love.graphics.newImage('assets/img/game/sled.png')
+	sled = love.graphics.newImage('assets/img/game/sled.png'),
+	sled_smoke = love.graphics.newImage('assets/img/game/sled-smoke.png'),
 }
 
 return Assets

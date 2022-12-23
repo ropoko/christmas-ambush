@@ -50,7 +50,8 @@ local Animation = {
 			right = anim8.newAnimation(Grid.enemy_cookie.death.right('1-11', 1), 0.2)
 		}
 	},
-	sled = anim8.newAnimation(Grid.sled('1-6', 1), 0.3)
+	sled = anim8.newAnimation(Grid.sled('1-6', 1), 0.2),
+	sled_smoke = anim8.newAnimation(Grid.sled_smoke('1-6', 1), 0.3)
 }
 
 return Animation

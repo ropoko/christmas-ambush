@@ -49,10 +49,6 @@ function Game:update(dt)
 	Shoot:update(dt)
 
 	Sled:update(dt)
-
-	-- for _,enemy in pairs(EnemyCookie.all_enemies) do
-	-- 	enemy.update(dt,enemy)
-	-- end
 end
 
 function Game:draw()
