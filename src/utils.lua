@@ -74,4 +74,29 @@ function Utils:randomize_coords()
 		return random_x, random_y
 end
 
+function Utils:top_center(obj_width, margin_top)
+	local width = Constants.WINDOW_SETTINGS.width
+
+	obj_width = obj_width or 0
+	margin_top = margin_top or 0
+
+	return {
+		width = ((width - obj_width) / 2),
+		height = margin_top
+	}
+end
+
+function Utils:left_bottom(margin_left, margin_bottom)
+	-- local width = Constants.WINDOW_SETTINGS.width
+	local height = Constants.WINDOW_SETTINGS.height
+
+	margin_left = margin_left or 0
+	margin_bottom = margin_bottom or 0
+
+	return {
+		width = margin_left,
+		height = height - margin_bottom
+	}
+end
+
 return Utils

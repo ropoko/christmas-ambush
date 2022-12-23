@@ -84,23 +84,23 @@ function EnemyCookie:move_to_sled(enemy,x,y)
 		y = Sled.y
 	}
 
-	if (sled_pos.y > y) then
+	if (math.ceil(sled_pos.y) > math.ceil(y)) then
 		y = y + self.speed
 
 		enemy.current_animation = Animation.enemy_cookie.walk.down
 		enemy.current_img = Assets.enemy_cookie.walk.down
 
-		enemy.last_direction = 'up'
+		enemy.last_direction = 'down'
 	end
-	if (sled_pos.y < y) then
+	if (math.ceil(sled_pos.y) < math.ceil(y)) then
 		y = y - self.speed
 
 		enemy.current_animation = Animation.enemy_cookie.walk.up
 		enemy.current_img = Assets.enemy_cookie.walk.up
 
-		enemy.last_direction = 'down'
+		enemy.last_direction = 'up'
 	end
-	if (sled_pos.x > x) then
+	if (math.ceil(sled_pos.x) > math.ceil(x)) then
 		x = x + self.speed
 
 		enemy.current_animation = Animation.enemy_cookie.walk.right
@@ -108,7 +108,7 @@ function EnemyCookie:move_to_sled(enemy,x,y)
 
 		enemy.last_direction = 'right'
 	end
-	if (sled_pos.x < x) then
+	if (math.ceil(sled_pos.x) < math.ceil(x)) then
 		x = x - self.speed
 
 		enemy.current_animation = Animation.enemy_cookie.walk.left

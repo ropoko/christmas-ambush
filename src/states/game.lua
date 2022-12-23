@@ -6,10 +6,13 @@ local Keys = require('src.entities.keys')
 local EnemyCookie = require('src.entities.enemy-cookie')
 local Constants = require('src.constants')
 local Elf = require('src.entities.elf')
+local Suit = require('lib.suit')
 
 local Game = {
-	number_of_waves = 2,
-	enemies_per_wave = 5
+	actual_wave = 1,
+	number_of_waves = 3,
+	enemies_per_wave = 5,
+	enemies_killed = 0
 }
 
 -- only one shoot per click
@@ -18,7 +21,7 @@ function love.keypressed(key)
 		Player:shoot()
 	end
 
-	if key == Keys.pause and CONTEXT.current ~= 'game_over' then
+	if key == Keys.pause and CONTEXT.current == 'game' or CONTEXT.current == 'pause' then
 		if CONTEXT.current == 'pause' then
 			CONTEXT:change('game')
 		else
@@ -55,6 +58,8 @@ end
 
 function Game:draw()
 	self:draw_background()
+
+	self:draw_wave()
 
 	Sled:draw()
 
@@ -111,6 +116,14 @@ function Game:draw_trees()
 
 	love.graphics.draw(self.tree, center.width + 450, center.height + 100)
 	love.graphics.draw(self.tree, center.width + 450, center.height - 300)
+end
+
+function Game:draw_wave()
+	local text_wave = 'Wave:'..self.actual_wave..'/'..self.number_of_waves
+
+	local color = { normal = {fg = {1,0,0}} }
+	local center_label = Utils:left_bottom(50,25)
+	Suit.Label(text_wave, { color=color, font=MEDIUM_BASE_FONT }, center_label.width, center_label.height - 50)
 end
 
 return Game
