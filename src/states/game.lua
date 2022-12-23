@@ -7,7 +7,10 @@ local EnemyCookie = require('src.entities.enemy-cookie')
 local Constants = require('src.constants')
 local Elf = require('src.entities.elf')
 
-local Game = {}
+local Game = {
+	number_of_waves = 2,
+	enemies_per_wave = 5
+}
 
 -- only one shoot per click
 function love.keypressed(key)
@@ -68,15 +71,6 @@ function Game:draw()
 			Player.status = 'idle'
 		end
 	end
-	-- if love.keyboard.isDown('space') then
-	-- 	Player.status = 'dash'
-
-	-- 	Player.current_animation.onLoop = function()
-	-- 		Player.status = 'walk'
-	-- 	end
-	-- end
-
-	-- print(Player.status)
 
 	Player:draw()
 
@@ -85,7 +79,7 @@ function Game:draw()
 	Shoot:draw()
 
 	-- enemies
-	EnemyCookie:draw(5)
+	EnemyCookie:draw(self.enemies_per_wave)
 
 	-- check collision shoot x enemies
 	EnemyCookie:collision_shoots()

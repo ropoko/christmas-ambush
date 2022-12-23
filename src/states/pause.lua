@@ -24,7 +24,8 @@ function Pause:draw()
 	end
 
 	local center_label = Utils:center(100,100)
-	Suit.Label('Pause', center_label.width, center_label.height, 100, 100)
+	-- Suit.Label('Pause', center_label.width, center_label.height, 100, 100)
+	Suit.Label('Pause', { font=BIGGER_BASE_FONT }, center_label.width - 20, center_label.height - 50)
 
 	local button_center = Utils:center(self.button_resume:getWidth(), self.button_resume:getHeight())
 

@@ -11,6 +11,8 @@ function love.load()
 
 	BASE_FONT = love.graphics.newFont('assets/fonts/Poppins-Regular.ttf', 20)
 
+	BIGGER_BASE_FONT = love.graphics.newFont('assets/fonts/Poppins-Regular.ttf', 44)
+
 	CONTEXT = Context;
 	love.window.setMode(Constants.WINDOW_SETTINGS.width, Constants.WINDOW_SETTINGS.height, { resizable = true })
 	love.window.setTitle('Christmas Ambush')
