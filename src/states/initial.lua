@@ -130,17 +130,15 @@ function Initial:draw_controls()
 end
 
 function Initial:draw_names(last_position)
-	local font = love.graphics.newFont('assets/fonts/Poppins-Regular.ttf', 20)
-
 	local x = last_position.x + 50
 	local y = last_position.y
 
 	local color = { normal = {fg = {1,1,1}} }
 
-	Suit.Label('Caique Jacomini', { color=color, font=font }, x, y)
-	Suit.Label('Henrique Moraes',{ color=color, font=font },x,y + 25)
-	Suit.Label('Pablo Maganha',{ color=color, font=font },x,y + 50)
-	Suit.Label('Rodrigo Maganha',{ color=color, font=font },x,y + 75)
+	Suit.Label('Caique Jacomini', { color=color, font=BASE_FONT }, x, y)
+	Suit.Label('Henrique Moraes',{ color=color, font=BASE_FONT },x,y + 25)
+	Suit.Label('Pablo Maganha',{ color=color, font=BASE_FONT },x,y + 50)
+	Suit.Label('Rodrigo Maganha',{ color=color, font=BASE_FONT },x,y + 75)
 end
 
 function Initial:draw_logo()

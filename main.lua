@@ -7,6 +7,8 @@ local Constants = require('src.constants')
 function love.load()
 	math.randomseed(os.clock())
 
+	BASE_FONT = love.graphics.newFont('assets/fonts/Poppins-Regular.ttf', 20)
+
 	CONTEXT = Context;
 	love.window.setMode(Constants.WINDOW_SETTINGS.width, Constants.WINDOW_SETTINGS.height, { resizable = true })
 	love.window.setTitle('Christmas Ambush')
