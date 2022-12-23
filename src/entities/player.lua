@@ -3,6 +3,7 @@ local Utils = require('src.utils')
 local Keys = require('src.entities.keys')
 local Animation = require('src.animations.animation')
 local Assets = require('src.animations.assets')
+local EnemyCookie = require('src.entities.enemy-cookie')
 
 local Player = {
 	x = Utils:center(20,20).width,
@@ -155,6 +156,20 @@ end
 
 function Player:update(dt)
 	self.current_animation:update(dt)
+end
+
+function Player:collision_enemies()
+	for _,enemy in pairs(EnemyCookie.all_enemies) do
+		if enemy.life > 0 then
+			if Utils:has_collision(enemy.x,enemy.y,EnemyCookie.width,EnemyCookie.height,
+				Player.x,Player.y,Player.width,Player.height) then
+				enemy.status = 'attack'
+				Player:handle_attack(enemy.damage)
+			else
+				enemy.status = 'walk'
+			end
+		end
+	end
 end
 
 return Player

@@ -43,6 +43,12 @@ function Game:update(dt)
 	end
 
 	Shoot:move()
+
+	EnemyCookie:update(dt)
+
+	-- for _,enemy in pairs(EnemyCookie.all_enemies) do
+	-- 	enemy.update(dt,enemy)
+	-- end
 end
 
 function Game:draw()
@@ -62,36 +68,19 @@ function Game:draw()
 
 	Shoot:draw()
 
+	-- enemies
 	EnemyCookie:draw(5)
 
 	Sled:draw()
 
-	-- collision shoot x enemies
-	for i,shoot in pairs(Shoot.all_shoots) do
-		for j,enemy in pairs(EnemyCookie.all_enemies) do
-			if Utils:has_collision(enemy.x,enemy.y,EnemyCookie.width,EnemyCookie.height,
-					shoot.x,shoot.y,shoot.size,shoot.size) then
-			EnemyCookie:handle_attack(shoot.damage, j)
-			table.remove(Shoot.all_shoots, i)
-			end
-		end
-	end
+	-- check collision shoot x enemies
+	EnemyCookie:collision_shoots()
 
-	-- collision enemies x sled
-	for _,enemy in pairs(EnemyCookie.all_enemies) do
-		if Utils:has_collision(enemy.x,enemy.y,EnemyCookie.width,EnemyCookie.height,
-				Sled.x,Sled.y,Sled.width,Sled.height) then
-			Sled:handle_attack(enemy.damage)
-		end
-	end
+	-- check collision enemies x sled
+	EnemyCookie:collision_sled()
 
-	-- collision player x enemies
-	for _,enemy in pairs(EnemyCookie.all_enemies) do
-		if Utils:has_collision(enemy.x,enemy.y,EnemyCookie.width,EnemyCookie.height,
-				Player.x,Player.y,Player.width,Player.height) then
-			Player:handle_attack(enemy.damage)
-		end
-	end
+	-- check collision player x enemies
+	Player:collision_enemies()
 end
 
 function Game:draw_background()

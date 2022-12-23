@@ -39,4 +39,39 @@ function Utils:has_collision(x1, y1, w1, h1, x2, y2, w2, h2)
 	)
 end
 
+function Utils:randomize_coords()
+	local side = love.math.random(0,1)
+		local vertical_side = love.math.random(0,1)
+
+		local new_random = love.math.random(0,1)
+
+		local random_x = 0
+		local random_y = 0
+
+		-- enemy come from left
+		if side == 0 then
+			random_x = love.math.random(-10, 0)
+		-- enemy come from right
+		else
+			random_x = love.math.random(Constants.WINDOW_SETTINGS.width, Constants.WINDOW_SETTINGS.width + 10)
+		end
+
+		-- enemy come from top
+		if vertical_side == 0 then
+			random_y = love.math.random(-10, 0)
+		-- enemy come from bottom
+		else
+			random_y = love.math.random(Constants.WINDOW_SETTINGS.height, Constants.WINDOW_SETTINGS.height + 10)
+		end
+
+		-- override to be more random
+		if new_random == 0 then
+			random_x = love.math.random(0,Constants.WINDOW_SETTINGS.width)
+		else
+			random_y = love.math.random(0,Constants.WINDOW_SETTINGS.height)
+		end
+
+		return random_x, random_y
+end
+
 return Utils

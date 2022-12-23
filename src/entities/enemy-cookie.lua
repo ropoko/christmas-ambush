@@ -1,6 +1,8 @@
+---@diagnostic disable: duplicate-set-field
 local Utils = require('src.utils')
 local Constants = require('src.constants')
 local Sled = require('src.entities.sled')
+
 local Shoot = require('src.entities.shoot')
 
 local Animation = require('src.animations.animation')
@@ -9,92 +11,71 @@ local Assets = require('src.animations.assets')
 local EnemyCookie = {
 	x = 0,
 	y = 0,
-	width = 20,
-	height = 20,
+	width = 64,
+	height = 64,
 	speed = 2/10,
 	max_life = 50,
 	life = 50,
+	-- so I know if the enemy was shot
+	last_life = 0,
 	all_enemies = {},
-	damage = 0.5,
+	damage = 0.05,
 	status = 'walk',
 	current_animation = Animation.enemy_cookie.walk.left,
 	current_img = Assets.enemy_cookie.walk.left,
 	last_direction = ''
 }
 
--- number of enemies
-function EnemyCookie:spawn(qty)
-	local new_qty = qty - #self.all_enemies
-
-	for _ = 1, new_qty do
-		local side = love.math.random(0,1)
-		local vertical_side = love.math.random(0,1)
-
-		local new_random = love.math.random(0,1)
-
-		local random_x = 0
-		local random_y = 0
-
-		-- enemy come from left
-		if side == 0 then
-			random_x = love.math.random(-10, 0)
-		-- enemy come from right
-		else
-			random_x = love.math.random(Constants.WINDOW_SETTINGS.width, Constants.WINDOW_SETTINGS.width + 10)
-		end
-
-		-- enemy come from top
-		if vertical_side == 0 then
-			random_y = love.math.random(-10, 0)
-		-- enemy come from bottom
-		else
-			random_y = love.math.random(Constants.WINDOW_SETTINGS.height, Constants.WINDOW_SETTINGS.height + 10)
-		end
-
-		-- override to be more random
-		if new_random == 0 then
-			random_x = love.math.random(0,Constants.WINDOW_SETTINGS.width)
-		else
-			random_y = love.math.random(0,Constants.WINDOW_SETTINGS.height)
-		end
-
-		local enemy = {
-			x = random_x,
-			y = random_y,
-			life = self.life,
-			damage = self.damage,
-			status = self.status,
-			current_animation = Animation.enemy_cookie.walk.left,
-			current_img = Assets.enemy_cookie.walk.left,
-			attack = self:attack(),
-			-- walk = self:move_to_sled()
-		}
-
-		enemy.walk = self:move_to_sled(enemy, enemy.x, enemy.y)
-
-		table.insert(self.all_enemies, enemy)
+-- called here
+function EnemyCookie:attack(enemy)
+	if enemy.last_direction == 'up' then
+		enemy.current_animation = Animation.enemy_cookie.attack.up
+		enemy.current_img = Assets.enemy_cookie.attack.up
 	end
+
+	if enemy.last_direction == 'down' then
+		enemy.current_animation = Animation.enemy_cookie.attack.down
+		enemy.current_img = Assets.enemy_cookie.attack.down
+	end
+
+	if enemy.last_direction == 'left' then
+		enemy.current_animation = Animation.enemy_cookie.attack.left
+		enemy.current_img = Assets.enemy_cookie.attack.left
+	end
+
+	if enemy.last_direction == 'right' then
+		enemy.current_animation = Animation.enemy_cookie.attack.right
+		enemy.current_img = Assets.enemy_cookie.attack.right
+	end
+
+	return enemy
 end
 
--- number of enemies
-function EnemyCookie:draw(qty)
-	if #self.all_enemies ~= qty then
-		self:spawn(qty)
+function EnemyCookie:death(enemy)
+	if enemy.last_direction == 'up' then
+		enemy.current_animation = Animation.enemy_cookie.death.down
+		enemy.current_img = Assets.enemy_cookie.death.down
 	end
 
-	for _, enemy in pairs(self.all_enemies) do
-		self:lifebar(enemy.x, enemy.y, enemy.life)
-
-		if enemy.status == 'walk' then
-			enemy.x, enemy.y = self:move_to_sled(enemy, enemy.x, enemy.y)
-		end
-
-		if enemy.status == 'attack' then
-			enemy.attack()
-		end
+	if enemy.last_direction == 'down' then
+		enemy.current_animation = Animation.enemy_cookie.death.up
+		enemy.current_img = Assets.enemy_cookie.death.up
 	end
+
+	if enemy.last_direction == 'left' then
+		enemy.current_animation = Animation.enemy_cookie.death.left
+		enemy.current_img = Assets.enemy_cookie.death.left
+	end
+
+	if enemy.last_direction == 'right' then
+		enemy.current_animation = Animation.enemy_cookie.death.right
+		enemy.current_img = Assets.enemy_cookie.death.right
+	end
+
+	return enemy
 end
 
+-- called here
 function EnemyCookie:move_to_sled(enemy,x,y)
 	x = x or 0
 	y = y or 0
@@ -104,39 +85,68 @@ function EnemyCookie:move_to_sled(enemy,x,y)
 		y = Sled.y
 	}
 
-	if Utils:has_collision(x,y,self.width,self.height,sled_pos.x,sled_pos.y,Sled.width,Sled.height) then
-		self:attack()
-		return x,y
-	end
-
 	if (sled_pos.y > y) then
 		y = y + self.speed
 
-		enemy.current_animation = Animation.enemy_cookie.walk.up
-		enemy.current_img = Assets.enemy_cookie.walk.up
+		enemy.current_animation = Animation.enemy_cookie.walk.down
+		enemy.current_img = Assets.enemy_cookie.walk.down
+
+		enemy.last_direction = 'up'
 	end
 	if (sled_pos.y < y) then
 		y = y - self.speed
 
-		enemy.current_animation = Animation.enemy_cookie.walk.down
-		enemy.current_img = Assets.enemy_cookie.walk.down
+		enemy.current_animation = Animation.enemy_cookie.walk.up
+		enemy.current_img = Assets.enemy_cookie.walk.up
+
+		enemy.last_direction = 'down'
 	end
 	if (sled_pos.x > x) then
 		x = x + self.speed
 
 		enemy.current_animation = Animation.enemy_cookie.walk.right
 		enemy.current_img = Assets.enemy_cookie.walk.right
+
+		enemy.last_direction = 'right'
 	end
 	if (sled_pos.x < x) then
 		x = x - self.speed
 
 		enemy.current_animation = Animation.enemy_cookie.walk.left
 		enemy.current_img = Assets.enemy_cookie.walk.left
+
+		enemy.last_direction = 'left'
 	end
 
-	return x,y
+	return enemy,x,y
 end
 
+-- called here
+function EnemyCookie:spawn(qty)
+	local new_qty = qty - #self.all_enemies
+
+	for _ = 1, new_qty do
+		local random_x, random_y = Utils:randomize_coords()
+
+		local enemy = {
+			x = random_x,
+			y = random_y,
+			life = self.life,
+			last_life = self.life,
+			damage = self.damage,
+			status = self.status,
+			current_animation = Animation.enemy_cookie.walk.left,
+			current_img = Assets.enemy_cookie.walk.left
+		}
+
+		enemy.attack = self:attack(enemy)
+		enemy.walk = self:move_to_sled(enemy,enemy.x,enemy.y)
+
+		table.insert(self.all_enemies, enemy)
+	end
+end
+
+-- called here
 function EnemyCookie:lifebar(x,y, life)
 	love.graphics.setColor(255/255,29/255,29/255)
 	love.graphics.setLineWidth(1)
@@ -145,14 +155,55 @@ function EnemyCookie:lifebar(x,y, life)
 	love.graphics.setColor(1,1,1)
 end
 
-function EnemyCookie:attack(enemy)
-	enemy.current_animation = Animation.enemy_cookie.walk.up
-	enemy.current_img = Assets.enemy_cookie.walk.up
+-- called in game state
+function EnemyCookie:draw(qty)
+	if #self.all_enemies ~= qty then
+		self:spawn(qty)
+	end
+
+	for i, enemy in pairs(self.all_enemies) do
+		self:lifebar(enemy.x, enemy.y, enemy.life)
+
+		-- used to remove after death
+		enemy.id = i
+
+		if enemy.status == 'walk' then
+			enemy, enemy.x, enemy.y = self:move_to_sled(enemy, enemy.x, enemy.y)
+		end
+
+		if enemy.status == 'attack' then
+			enemy = self:attack(enemy)
+		end
+
+		if enemy.status == 'death' then
+			enemy = self:death(enemy)
+
+			enemy.current_animation.onLoop = function()
+				table.remove(self.all_enemies, enemy.id)
+			end
+		end
+
+		if enemy.last_life ~= enemy.life then
+			love.graphics.setColor(1,0,0)
+			enemy.last_life = enemy.life
+		end
+
+		enemy.current_animation:draw(enemy.current_img, enemy.x, enemy.y)
+		love.graphics.setColor(1,1,1)
+	end
 end
 
+-- called in game state
+function EnemyCookie:update(dt)
+	for _,enemy in pairs(self.all_enemies) do
+		enemy.current_animation:update(dt)
+	end
+end
+
+-- called in game state
 function EnemyCookie:handle_attack(damage, index_enemy)
 	if self.all_enemies[index_enemy].life <= 0 then
-		table.remove(self.all_enemies, index_enemy)
+		self.all_enemies[index_enemy].status = 'death'
 		return
 	end
 
@@ -160,6 +211,33 @@ function EnemyCookie:handle_attack(damage, index_enemy)
 		self.all_enemies[index_enemy].life = 0
 	else
 		self.all_enemies[index_enemy].life = self.all_enemies[index_enemy].life - damage
+	end
+
+end
+
+function EnemyCookie:collision_shoots()
+	for i,shoot in pairs(Shoot.all_shoots) do
+		for j,enemy in pairs(EnemyCookie.all_enemies) do
+			if Utils:has_collision(enemy.x,enemy.y,self.width,self.height,
+					shoot.x,shoot.y,shoot.size,shoot.size) then
+
+			enemy = EnemyCookie:handle_attack(shoot.damage, j)
+
+			table.remove(Shoot.all_shoots, i)
+			end
+		end
+	end
+end
+
+function EnemyCookie:collision_sled()
+	for _,enemy in pairs(EnemyCookie.all_enemies) do
+		if enemy.life > 0  then
+			if Utils:has_collision(enemy.x,enemy.y,EnemyCookie.width,EnemyCookie.height,
+				Sled.x,Sled.y,Sled.width,Sled.height) then
+				enemy.status = 'attack'
+				Sled:handle_attack(self.damage)
+			end
+		end
 	end
 end
 

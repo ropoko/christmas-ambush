@@ -13,7 +13,14 @@ local Assets = {
 			down = love.graphics.newImage('assets/img/game/santa/walk-down.png'),
 			left = love.graphics.newImage('assets/img/game/santa/walk-left.png'),
 			right = love.graphics.newImage('assets/img/game/santa/walk-right.png')
-		}
+		},
+		dash = {
+			up = love.graphics.newImage('assets/img/game/santa/dash-up.png'),
+			down = love.graphics.newImage('assets/img/game/santa/dash-down.png'),
+			left = love.graphics.newImage('assets/img/game/santa/dash-left.png'),
+			right = love.graphics.newImage('assets/img/game/santa/dash-right.png')
+		},
+		death = love.graphics.newImage('assets/img/game/santa/death.png')
 	},
 	elf = {
 		fixing = love.graphics.newImage('assets/img/game/elf/fixing.png')
