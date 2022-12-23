@@ -1,4 +1,9 @@
+local Animation = require('src.animations.animation')
+local Assets = require('src.animations.assets')
 local Utils = require('src.utils')
+
+local sled_animation = Animation.sled
+local img_sled_animation = Assets.sled
 
 local Sled = {
 	x = Utils:center(70,70).width,
@@ -10,8 +15,12 @@ local Sled = {
 }
 
 function Sled:draw()
-	love.graphics.rectangle("line", self.x, self.y, self.width, self.height)
+	sled_animation:draw(img_sled_animation, self.x, self.y)
 	self:lifebar()
+end
+
+function Sled:update(dt)
+	sled_animation:update(dt)
 end
 
 function Sled:lifebar()

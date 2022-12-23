@@ -11,7 +11,7 @@ local Player = {
 	speed = 5/10,
 	width = 64,
 	height = 64,
-	dash_interval = 2, -- seconds
+	dash_interval = 1, -- seconds
 	last_dash = 0,
 	dash_distance = 15,
 	last_direction = '',
@@ -19,17 +19,16 @@ local Player = {
 	max_life = 150,
 	current_animation = Animation.santa.idle.down,
 	current_img = Assets.santa.idle.down,
-	status = 'idle'
+	status = 'idle',
+	last_movement = {}
 }
 
 function Player:move()
-	local last_movement = {}
-
 	if love.keyboard.isDown('w') then
 		Player.y = Player.y - self.speed
 
-		last_movement.direction = 'y'
-		last_movement.signal = '-'
+		Player.last_movement.direction = 'y'
+		Player.last_movement.signal = '-'
 
 		Player.last_direction = '-y'
 
@@ -40,8 +39,8 @@ function Player:move()
 	if love.keyboard.isDown('s') then
 		Player.y = Player.y + self.speed
 
-		last_movement.direction = 'y'
-		last_movement.signal = '+'
+		Player.last_movement.direction = 'y'
+		Player.last_movement.signal = '+'
 
 		Player.last_direction = '+y'
 
@@ -52,8 +51,8 @@ function Player:move()
 	if love.keyboard.isDown('a') then
 		Player.x = Player.x - self.speed
 
-		last_movement.direction = 'x'
-		last_movement.signal = '-'
+		Player.last_movement.direction = 'x'
+		Player.last_movement.signal = '-'
 
 		Player.last_direction = '-x'
 
@@ -64,8 +63,8 @@ function Player:move()
 	if love.keyboard.isDown('d') then
 		Player.x = Player.x + self.speed
 
-		last_movement.direction = 'x'
-		last_movement.signal = '+'
+		Player.last_movement.direction = 'x'
+		Player.last_movement.signal = '+'
 
 		Player.last_direction = '+x'
 
@@ -73,7 +72,11 @@ function Player:move()
 		self.current_img = Assets.santa.walk.right
 	end
 
-	self:dash(last_movement.direction, last_movement.signal)
+	if love.keyboard.isDown('space') then
+		self:dash(Player.last_movement.direction, Player.last_movement.signal)
+	end
+
+	-- self:dash(last_movement.direction, last_movement.signal)
 end
 
 function Player:idle()
@@ -104,11 +107,29 @@ function Player:dash(direction, signal)
 		['+'] = function (x,y) return x + y end,
 	}
 
-	if love.keyboard.isDown(Keys.dash) then
-		if (os.time() - Player.last_dash) > Player.dash_interval then
-			Player.last_dash = os.time()
+	if (os.time() - Player.last_dash) > Player.dash_interval then
+		Player.last_dash = os.time()
 
-			Player[direction] = execute[signal](Player[direction], Player.dash_distance)
+		Player[direction] = execute[signal](Player[direction], Player.dash_distance)
+
+		if self.last_direction == '-y' then
+			self.current_animation = Animation.santa.dash.up
+			self.current_img = Assets.santa.dash.up
+		end
+
+		if self.last_direction == '+y' then
+			self.current_animation = Animation.santa.dash.down
+			self.current_img = Assets.santa.dash.down
+		end
+
+		if self.last_direction == '-x' then
+			self.current_animation = Animation.santa.dash.left
+			self.current_img = Assets.santa.dash.left
+		end
+
+		if self.last_direction == '+x' then
+			self.current_animation = Animation.santa.dash.right
+			self.current_img = Assets.santa.dash.right
 		end
 	end
 end
@@ -142,6 +163,10 @@ end
 
 function Player:draw()
 	self:lifebar()
+
+	if self.status == 'dash' then
+		Player:dash()
+	end
 
 	if self.status == 'walk' then
 		Player:move()

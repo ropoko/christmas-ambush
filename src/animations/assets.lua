@@ -20,7 +20,9 @@ local Assets = {
 			left = love.graphics.newImage('assets/img/game/santa/dash-left.png'),
 			right = love.graphics.newImage('assets/img/game/santa/dash-right.png')
 		},
-		death = love.graphics.newImage('assets/img/game/santa/death.png')
+		death = love.graphics.newImage('assets/img/game/santa/death.png'),
+		shoot = love.graphics.newImage('assets/img/game/santa/shoot.png'),
+		power_shoot = love.graphics.newImage('assets/img/game/santa/power-shoot.png')
 	},
 	elf = {
 		fixing = love.graphics.newImage('assets/img/game/elf/fixing.png')
@@ -44,7 +46,8 @@ local Assets = {
 			left = love.graphics.newImage('assets/img/game/enemy-cookie/death-left.png'),
 			right = love.graphics.newImage('assets/img/game/enemy-cookie/death-right.png')
 		}
-	}
+	},
+	sled = love.graphics.newImage('assets/img/game/sled.png')
 }
 
 return Assets

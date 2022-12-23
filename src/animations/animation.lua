@@ -16,7 +16,16 @@ local Animation = {
 			down = anim8.newAnimation(Grid.santa.walk.down('1-4', 1), 0.2),
 			left = anim8.newAnimation(Grid.santa.walk.left('1-8', 1), 0.2),
 			right = anim8.newAnimation(Grid.santa.walk.right('1-8', 1), 0.2)
-		}
+		},
+		dash = {
+			up = anim8.newAnimation(Grid.santa.dash.up('1-6', 1), 0.2),
+			down = anim8.newAnimation(Grid.santa.dash.down('1-6', 1), 0.2),
+			left = anim8.newAnimation(Grid.santa.dash.left('1-6', 1), 0.2),
+			right = anim8.newAnimation(Grid.santa.dash.right('1-6', 1), 0.2)
+		},
+		death = anim8.newAnimation(Grid.santa.death('1-9', 1), 0.2),
+		shoot = anim8.newAnimation(Grid.santa.shoot('1-4', 1), 0.2),
+		power_shoot = anim8.newAnimation(Grid.santa.power_shoot('1-4', 1), 0.2)
 	},
 	elf = {
 		fixing = anim8.newAnimation(Grid.elf.fixing('2-4', 1), 0.2)
@@ -40,7 +49,8 @@ local Animation = {
 			left = anim8.newAnimation(Grid.enemy_cookie.death.left('1-11', 1), 0.2),
 			right = anim8.newAnimation(Grid.enemy_cookie.death.right('1-11', 1), 0.2)
 		}
-	}
+	},
+	sled = anim8.newAnimation(Grid.sled('1-6', 1), 0.3)
 }
 
 return Animation

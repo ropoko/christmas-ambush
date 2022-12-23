@@ -46,6 +46,10 @@ function Game:update(dt)
 
 	EnemyCookie:update(dt)
 
+	Shoot:update(dt)
+
+	Sled:update(dt)
+
 	-- for _,enemy in pairs(EnemyCookie.all_enemies) do
 	-- 	enemy.update(dt,enemy)
 	-- end
@@ -53,6 +57,8 @@ end
 
 function Game:draw()
 	self:draw_background()
+
+	Sled:draw()
 
 	Elf:draw()
 
@@ -62,6 +68,16 @@ function Game:draw()
 		Player.status = 'idle'
 	end
 
+	-- if love.keyboard.isDown('space') then
+	-- 	Player.status = 'dash'
+
+	-- 	Player.current_animation.onLoop = function()
+	-- 		Player.status = 'walk'
+	-- 	end
+	-- end
+
+	-- print(Player.status)
+
 	Player:draw()
 
 	self:draw_trees()
@@ -70,8 +86,6 @@ function Game:draw()
 
 	-- enemies
 	EnemyCookie:draw(5)
-
-	Sled:draw()
 
 	-- check collision shoot x enemies
 	EnemyCookie:collision_shoots()

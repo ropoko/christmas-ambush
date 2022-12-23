@@ -16,7 +16,16 @@ local Grid = {
 			down = anim8.newGrid(64, 64, Assets.santa.walk.down:getWidth(), Assets.santa.walk.down:getHeight()),
 			left = anim8.newGrid(64, 64, Assets.santa.walk.left:getWidth(), Assets.santa.walk.left:getHeight()),
 			right = anim8.newGrid(64, 64, Assets.santa.walk.right:getWidth(), Assets.santa.walk.right:getHeight())
-		}
+		},
+		dash = {
+			up = anim8.newGrid(64, 64, Assets.santa.dash.up:getWidth(), Assets.santa.dash.up:getHeight()),
+			down = anim8.newGrid(64, 64, Assets.santa.dash.down:getWidth(), Assets.santa.dash.down:getHeight()),
+			left = anim8.newGrid(64, 64, Assets.santa.dash.left:getWidth(), Assets.santa.dash.left:getHeight()),
+			right = anim8.newGrid(64, 64, Assets.santa.dash.right:getWidth(), Assets.santa.dash.right:getHeight())
+		},
+		death = anim8.newGrid(64, 64, Assets.santa.death:getWidth(), Assets.santa.death:getHeight()),
+		shoot = anim8.newGrid(10,10, Assets.santa.shoot:getWidth(), Assets.santa.shoot:getHeight()),
+		power_shoot = anim8.newGrid(10,10, Assets.santa.power_shoot:getWidth(), Assets.santa.power_shoot:getHeight()),
 	},
 	elf = {
 		fixing = anim8.newGrid(20, 42, Assets.elf.fixing:getWidth(), Assets.elf.fixing:getHeight())
@@ -40,7 +49,8 @@ local Grid = {
 			left = anim8.newGrid(64, 64, Assets.enemy_cookie.death.left:getWidth(), Assets.enemy_cookie.death.left:getHeight()),
 			right = anim8.newGrid(64, 64, Assets.enemy_cookie.death.right:getWidth(), Assets.enemy_cookie.death.right:getHeight())
 		}
-	}
+	},
+	sled = anim8.newGrid(100, 60, Assets.sled:getWidth(), Assets.sled:getHeight())
 }
 
 return Grid
