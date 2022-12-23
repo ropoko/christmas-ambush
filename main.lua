@@ -9,7 +9,7 @@ function love.load()
 
 	BASE_FONT = love.graphics.newFont('assets/fonts/Poppins-Regular.ttf', 20)
 
-	MEDIUM_BASE_FONT = love.graphics.newFont('assets/fonts/Poppins-Regular.ttf', 30)
+	MEDIUM_BASE_FONT = love.graphics.newFont('assets/fonts/Poppins-Regular.ttf', 28)
 
 	BIGGER_BASE_FONT = love.graphics.newFont('assets/fonts/Poppins-Regular.ttf', 44)
 

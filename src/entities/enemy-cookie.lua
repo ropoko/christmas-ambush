@@ -54,13 +54,13 @@ end
 
 function EnemyCookie:death(enemy)
 	if enemy.last_direction == 'up' then
-		enemy.current_animation = Animation.enemy_cookie.death.down
-		enemy.current_img = Assets.enemy_cookie.death.down
+		enemy.current_animation = Animation.enemy_cookie.death.up
+		enemy.current_img = Assets.enemy_cookie.death.up
 	end
 
 	if enemy.last_direction == 'down' then
-		enemy.current_animation = Animation.enemy_cookie.death.up
-		enemy.current_img = Assets.enemy_cookie.death.up
+		enemy.current_animation = Animation.enemy_cookie.death.down
+		enemy.current_img = Assets.enemy_cookie.death.down
 	end
 
 	if enemy.last_direction == 'left' then

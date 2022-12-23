@@ -7,12 +7,14 @@ local EnemyCookie = require('src.entities.enemy-cookie')
 local Constants = require('src.constants')
 local Elf = require('src.entities.elf')
 local Suit = require('lib.suit')
+local EnemySnowman = require('src.entities.enemy-snowman')
 
 local Game = {
 	actual_wave = 1,
 	number_of_waves = 3,
 	enemies_per_wave = 5,
-	enemies_killed = 0
+	enemies_killed = 0,
+	actual_enemy = EnemyCookie
 }
 
 -- only one shoot per click
@@ -55,7 +57,7 @@ function Game:update(dt)
 
 	Shoot:move()
 
-	EnemyCookie:update(dt)
+	self.actual_enemy:update(dt)
 
 	Shoot:update(dt)
 
@@ -89,13 +91,13 @@ function Game:draw()
 	Shoot:draw()
 
 	-- enemies
-	EnemyCookie:draw(self.enemies_per_wave)
+	self.actual_enemy:draw(self.enemies_per_wave)
 
 	-- check collision shoot x enemies
-	EnemyCookie:collision_shoots()
+	self.actual_enemy:collision_shoots()
 
 	-- check collision enemies x sled
-	EnemyCookie:collision_sled()
+	self.actual_enemy:collision_sled()
 
 	-- check collision player x enemies
 	Player:collision_enemies()
@@ -142,7 +144,11 @@ function Game:try_again()
 	Sled.life = Sled.max_life
 	Player.life = Player.max_life
 
-	EnemyCookie:clear_enemies()
+	self.actual_enemy:clear_enemies()
+end
+
+function Game:next_wave()
+
 end
 
 return Game
