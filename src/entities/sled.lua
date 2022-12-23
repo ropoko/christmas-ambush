@@ -18,7 +18,11 @@ local Sled = {
 }
 
 function Sled:draw()
-	sled_smoke_animation:draw(img_sled_smoke_animation, self.x + 70, self.y - 10)
+	love.graphics.push()
+	love.graphics.scale(2,2)
+	sled_smoke_animation:draw(img_sled_smoke_animation, (self.x + 10) /2, (self.y - 15)/2)
+	love.graphics.scale(1,1)
+	love.graphics.pop()
 
 	sled_animation:draw(img_sled_animation, self.x, self.y)
 	self:lifebar()

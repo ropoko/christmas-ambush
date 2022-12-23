@@ -15,8 +15,8 @@ local Player = {
 	last_dash = 0,
 	dash_distance = 15,
 	last_direction = '',
-	life = 150,
-	max_life = 150,
+	life = 100,
+	max_life = 100,
 	current_animation = Animation.santa.idle.down,
 	current_img = Assets.santa.idle.down,
 	status = 'idle',
@@ -156,8 +156,8 @@ end
 
 function Player:lifebar()
 	love.graphics.setColor(255/255,29/255,29/255)
-	love.graphics.rectangle("line", self.x, self.y - 10, self.max_life, 5)
-	love.graphics.rectangle("fill", self.x, self.y - 10, self.life, 5)
+	love.graphics.rectangle("line", self.x - 10, self.y - 10, self.max_life, 5)
+	love.graphics.rectangle("fill", self.x - 10, self.y - 10, self.life, 5)
 	love.graphics.setColor(255,255,255)
 end
 
