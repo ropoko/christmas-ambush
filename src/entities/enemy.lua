@@ -23,6 +23,8 @@ function Enemy:spawn(qty)
 		local side = love.math.random(0,1)
 		local vertical_side = love.math.random(0,1)
 
+		local new_random = love.math.random(0,1)
+
 		local random_x = 0
 		local random_y = 0
 
@@ -40,6 +42,13 @@ function Enemy:spawn(qty)
 		-- enemy come from bottom
 		else
 			random_y = love.math.random(Constants.WINDOW_SETTINGS.height, Constants.WINDOW_SETTINGS.height + 10)
+		end
+
+		-- override to be more random
+		if new_random == 0 then
+			random_x = love.math.random(0,Constants.WINDOW_SETTINGS.width)
+		else
+			random_y = love.math.random(0,Constants.WINDOW_SETTINGS.height)
 		end
 
 		local enemy = {
@@ -108,6 +117,7 @@ end
 function Enemy:handle_attack(damage, index_enemy)
 	if self.all_enemies[index_enemy].life <= 0 then
 		table.remove(self.all_enemies, index_enemy)
+		return
 	end
 
 	if (self.all_enemies[index_enemy].life - damage) < 0 then
