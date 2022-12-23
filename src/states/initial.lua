@@ -21,6 +21,8 @@ local controls_space = love.graphics.newImage('assets/img/initial/controls_space
 
 local logo_img = love.graphics.newImage('assets/img/initial/logo.png')
 
+function Initial:load() end
+
 function Initial:update()
 	music:play()
 end

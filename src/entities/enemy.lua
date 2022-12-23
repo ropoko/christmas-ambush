@@ -8,11 +8,11 @@ local Enemy = {
 	y = 0,
 	width = 20,
 	height = 20,
-	speed = 4/10,
+	speed = 2/10,
 	max_life = 50,
 	life = 50,
 	all_enemies = {},
-	damage = 1
+	damage = 0.5
 }
 
 -- number of enemies

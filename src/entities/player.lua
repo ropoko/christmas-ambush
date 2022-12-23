@@ -1,78 +1,100 @@
 local Shoot = require('src.entities.shoot')
 local Utils = require('src.utils')
 local Keys = require('src.entities.keys')
-local anim8 = require('lib.anim8')
-
-local idle_up = love.graphics.newImage('assets/img/game/santa/idle-up.png')
-local grid_idle_up = anim8.newGrid(64, 64, idle_up:getWidth(), idle_up:getHeight())
-local idle_up_animation = anim8.newAnimation(grid_idle_up('1-4', 1), 0.2)
-
-local idle_down = love.graphics.newImage('assets/img/game/santa/idle-down.png')
-local grid_idle_down = anim8.newGrid(64, 64, idle_down:getWidth(), idle_down:getHeight())
-local idle_down_animation = anim8.newAnimation(grid_idle_down('1-4', 1), 0.2)
-
-local idle_left = love.graphics.newImage('assets/img/game/santa/idle-left.png')
-local grid_idle_left = anim8.newGrid(64, 64, idle_left:getWidth(), idle_left:getHeight())
-local idle_left_animation = anim8.newAnimation(grid_idle_left('1-4', 1), 0.2)
-
-local idle_right = love.graphics.newImage('assets/img/game/santa/idle-right.png')
-local grid_idle_right = anim8.newGrid(64, 64, idle_right:getWidth(), idle_right:getHeight())
-local idle_right_animation = anim8.newAnimation(grid_idle_right('1-4', 1), 0.2)
+local Animation = require('src.animations.animation')
+local Assets = require('src.animations.assets')
 
 local Player = {
 	x = Utils:center(20,20).width,
 	y = Utils:center(20,20).height,
-	speed = 2,
+	speed = 5/10,
+	width = 64,
+	height = 64,
 	dash_interval = 2, -- seconds
 	last_dash = 0,
 	dash_distance = 15,
 	last_direction = '',
 	life = 150,
 	max_life = 150,
-	current_animation = idle_down_animation,
-	current_img = idle_down
+	current_animation = Animation.santa.idle.down,
+	current_img = Assets.santa.idle.down,
+	status = 'walk'
 }
 
 function Player:move()
 	local last_movement = {}
 
 	if love.keyboard.isDown('w') then
-		Player.y = Player.y - 1
+		Player.y = Player.y - self.speed
 
 		last_movement.direction = 'y'
 		last_movement.signal = '-'
 
 		Player.last_direction = '-y'
+
+		self.current_animation = Animation.santa.walk.up
+		self.current_img = Assets.santa.walk.up
 	end
 
 	if love.keyboard.isDown('s') then
-		Player.y = Player.y + 1
+		Player.y = Player.y + self.speed
 
 		last_movement.direction = 'y'
 		last_movement.signal = '+'
 
 		Player.last_direction = '+y'
+
+		self.current_animation = Animation.santa.walk.down
+		self.current_img = Assets.santa.walk.down
 	end
 
 	if love.keyboard.isDown('a') then
-		Player.x = Player.x - 1
+		Player.x = Player.x - self.speed
 
 		last_movement.direction = 'x'
 		last_movement.signal = '-'
 
 		Player.last_direction = '-x'
+
+		self.current_animation = Animation.santa.walk.left
+		self.current_img = Assets.santa.walk.left
 	end
 
 	if love.keyboard.isDown('d') then
-		Player.x = Player.x + 1
+		Player.x = Player.x + self.speed
 
 		last_movement.direction = 'x'
 		last_movement.signal = '+'
 
 		Player.last_direction = '+x'
+
+		self.current_animation = Animation.santa.walk.right
+		self.current_img = Assets.santa.walk.right
 	end
 
 	self:dash(last_movement.direction, last_movement.signal)
+end
+
+function Player:idle()
+	if self.last_direction == '-y' then
+		self.current_animation = Animation.santa.idle.up
+		self.current_img = Assets.santa.idle.up
+	end
+
+	if self.last_direction == '+y' then
+		self.current_animation = Animation.santa.idle.down
+		self.current_img = Assets.santa.idle.down
+	end
+
+	if self.last_direction == '-x' then
+		self.current_animation = Animation.santa.idle.left
+		self.current_img = Assets.santa.idle.left
+	end
+
+	if self.last_direction == '+x' then
+		self.current_animation = Animation.santa.idle.right
+		self.current_img = Assets.santa.idle.right
+	end
 end
 
 function Player:dash(direction, signal)
@@ -119,8 +141,16 @@ end
 
 function Player:draw()
 	self:lifebar()
+
+	if self.status == 'walk' then
+		Player:move()
+	end
+
+	if self.status == 'idle' then
+		Player:idle()
+	end
+
 	self.current_animation:draw(self.current_img, self.x, self.y)
-	-- love.graphics.draw(self.img, self.x, self.y)
 end
 
 function Player:update(dt)

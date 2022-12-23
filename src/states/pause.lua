@@ -36,7 +36,7 @@ function Pause:draw()
 	end
 
 	if exit.hit then
-		love.event.quit()
+		CONTEXT:change('initial')
 	end
 end
 

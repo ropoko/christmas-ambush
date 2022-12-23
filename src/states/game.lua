@@ -44,7 +44,14 @@ end
 
 function Game:draw()
 	self:draw_background()
+	if love.keyboard.isDown('w','a','s','d') then
+		Player.status = 'walk'
+	else
+		Player.status = 'idle'
+	end
+
 	Player:draw()
+
 	self:draw_trees()
 
 	Shoot:draw()
@@ -75,7 +82,7 @@ function Game:draw()
 	-- collision player x enemies
 	for _,enemy in pairs(Enemy.all_enemies) do
 		if Utils:has_collision(enemy.x,enemy.y,Enemy.width,Enemy.height,
-				Player.x,Player.y,Player.current_img:getWidth(),Player.current_img:getHeight()) then
+				Player.x,Player.y,Player.width,Player.height) then
 			Player:handle_attack(enemy.damage)
 		end
 	end
