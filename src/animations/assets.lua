@@ -14,6 +14,29 @@ local Assets = {
 			left = love.graphics.newImage('assets/img/game/santa/walk-left.png'),
 			right = love.graphics.newImage('assets/img/game/santa/walk-right.png')
 		}
+	},
+	elf = {
+		fixing = love.graphics.newImage('assets/img/game/elf/fixing.png')
+	},
+	enemy_cookie = {
+		walk = {
+			up = love.graphics.newImage('assets/img/game/enemy-cookie/walk-up.png'),
+			down = love.graphics.newImage('assets/img/game/enemy-cookie/walk-down.png'),
+			left = love.graphics.newImage('assets/img/game/enemy-cookie/walk-left.png'),
+			right = love.graphics.newImage('assets/img/game/enemy-cookie/walk-right.png')
+		},
+		attack = {
+			up = love.graphics.newImage('assets/img/game/enemy-cookie/attack-up.png'),
+			down = love.graphics.newImage('assets/img/game/enemy-cookie/attack-down.png'),
+			left = love.graphics.newImage('assets/img/game/enemy-cookie/attack-left.png'),
+			right = love.graphics.newImage('assets/img/game/enemy-cookie/attack-right.png')
+		},
+		death = {
+			up = love.graphics.newImage('assets/img/game/enemy-cookie/death-up.png'),
+			down = love.graphics.newImage('assets/img/game/enemy-cookie/death-down.png'),
+			left = love.graphics.newImage('assets/img/game/enemy-cookie/death-left.png'),
+			right = love.graphics.newImage('assets/img/game/enemy-cookie/death-right.png')
+		}
 	}
 }
 

@@ -3,7 +3,7 @@ local Constants = require('src.constants')
 local Sled = require('src.entities.sled')
 local Shoot = require('src.entities.shoot')
 
-local Enemy = {
+local EnemySnowman = {
 	x = 0,
 	y = 0,
 	width = 20,
@@ -16,7 +16,7 @@ local Enemy = {
 }
 
 -- number of enemies
-function Enemy:spawn(qty)
+function EnemySnowman:spawn(qty)
 	local new_qty = qty - #self.all_enemies
 
 	for _ = 1, new_qty do
@@ -63,7 +63,7 @@ function Enemy:spawn(qty)
 end
 
 -- number of enemies
-function Enemy:draw(qty)
+function EnemySnowman:draw(qty)
 	if #self.all_enemies ~= qty then
 		self:spawn(qty)
 	end
@@ -75,7 +75,7 @@ function Enemy:draw(qty)
 	end
 end
 
-function Enemy:move_to_sled(x,y)
+function EnemySnowman:move_to_sled(x,y)
 	local sled_pos = {
 		x = Sled.x,
 		y = Sled.y
@@ -102,7 +102,7 @@ function Enemy:move_to_sled(x,y)
 	return x,y
 end
 
-function Enemy:lifebar(x,y, life)
+function EnemySnowman:lifebar(x,y, life)
 	love.graphics.setColor(255/255,29/255,29/255)
 	love.graphics.setLineWidth(1)
 	love.graphics.rectangle('line', x, y - 10, self.max_life, 5)
@@ -110,11 +110,11 @@ function Enemy:lifebar(x,y, life)
 	love.graphics.setColor(1,1,1)
 end
 
-function Enemy:attack()
+function EnemySnowman:attack()
 
 end
 
-function Enemy:handle_attack(damage, index_enemy)
+function EnemySnowman:handle_attack(damage, index_enemy)
 	if self.all_enemies[index_enemy].life <= 0 then
 		table.remove(self.all_enemies, index_enemy)
 		return
@@ -127,4 +127,4 @@ function Enemy:handle_attack(damage, index_enemy)
 	end
 end
 
-return Enemy
+return EnemySnowman

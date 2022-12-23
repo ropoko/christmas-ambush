@@ -17,6 +17,29 @@ local Grid = {
 			left = anim8.newGrid(64, 64, Assets.santa.walk.left:getWidth(), Assets.santa.walk.left:getHeight()),
 			right = anim8.newGrid(64, 64, Assets.santa.walk.right:getWidth(), Assets.santa.walk.right:getHeight())
 		}
+	},
+	elf = {
+		fixing = anim8.newGrid(20, 42, Assets.elf.fixing:getWidth(), Assets.elf.fixing:getHeight())
+	},
+	enemy_cookie = {
+		walk = {
+			up = anim8.newGrid(64, 64, Assets.enemy_cookie.walk.up:getWidth(), Assets.enemy_cookie.walk.up:getHeight()),
+			down = anim8.newGrid(64, 64, Assets.enemy_cookie.walk.down:getWidth(), Assets.enemy_cookie.walk.down:getHeight()),
+			left = anim8.newGrid(64, 64, Assets.enemy_cookie.walk.left:getWidth(), Assets.enemy_cookie.walk.left:getHeight()),
+			right = anim8.newGrid(64, 64, Assets.enemy_cookie.walk.right:getWidth(), Assets.enemy_cookie.walk.right:getHeight())
+		},
+		attack = {
+			up = anim8.newGrid(64, 64, Assets.enemy_cookie.attack.up:getWidth(), Assets.enemy_cookie.attack.up:getHeight()),
+			down = anim8.newGrid(64, 64, Assets.enemy_cookie.attack.down:getWidth(), Assets.enemy_cookie.attack.down:getHeight()),
+			left = anim8.newGrid(64, 64, Assets.enemy_cookie.attack.left:getWidth(), Assets.enemy_cookie.attack.left:getHeight()),
+			right = anim8.newGrid(64, 64, Assets.enemy_cookie.attack.right:getWidth(), Assets.enemy_cookie.attack.right:getHeight())
+		},
+		death = {
+			up = anim8.newGrid(64, 64, Assets.enemy_cookie.death.up:getWidth(), Assets.enemy_cookie.death.up:getHeight()),
+			down = anim8.newGrid(64, 64, Assets.enemy_cookie.death.down:getWidth(), Assets.enemy_cookie.death.down:getHeight()),
+			left = anim8.newGrid(64, 64, Assets.enemy_cookie.death.left:getWidth(), Assets.enemy_cookie.death.left:getHeight()),
+			right = anim8.newGrid(64, 64, Assets.enemy_cookie.death.right:getWidth(), Assets.enemy_cookie.death.right:getHeight())
+		}
 	}
 }
 

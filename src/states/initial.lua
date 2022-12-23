@@ -149,7 +149,7 @@ function Initial:draw_logo()
 	love.graphics.scale(0.6,0.6)
 
 	local logo_center = Utils:center(logo_img:getWidth(),logo_img:getHeight())
-	love.graphics.draw(logo_img, logo_center.width + 425, logo_center.height - 30)
+	love.graphics.draw(logo_img, logo_center.width + Constants.WINDOW_SETTINGS.width * 0.4, logo_center.height - 30)
 
 	love.graphics.scale(1,1)
 

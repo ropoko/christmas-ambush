@@ -3,8 +3,9 @@ local Shoot = require('src.entities.shoot')
 local Sled = require('src.entities.sled')
 local Utils = require('src.utils')
 local Keys = require('src.entities.keys')
-local Enemy = require('src.entities.enemy')
+local EnemyCookie = require('src.entities.enemy-cookie')
 local Constants = require('src.constants')
+local Elf = require('src.entities.elf')
 
 local Game = {}
 
@@ -33,6 +34,8 @@ function Game:load()
 end
 
 function Game:update(dt)
+	Elf:update(dt)
+
 	Player:update(dt)
 
 	if love.keyboard.isDown(unpack(Keys.move)) then
@@ -44,6 +47,9 @@ end
 
 function Game:draw()
 	self:draw_background()
+
+	Elf:draw()
+
 	if love.keyboard.isDown('w','a','s','d') then
 		Player.status = 'walk'
 	else
@@ -56,32 +62,32 @@ function Game:draw()
 
 	Shoot:draw()
 
-	Enemy:draw(5)
+	EnemyCookie:draw(5)
 
 	Sled:draw()
 
 	-- collision shoot x enemies
 	for i,shoot in pairs(Shoot.all_shoots) do
-		for j,enemy in pairs(Enemy.all_enemies) do
-			if Utils:has_collision(enemy.x,enemy.y,Enemy.width,Enemy.height,
+		for j,enemy in pairs(EnemyCookie.all_enemies) do
+			if Utils:has_collision(enemy.x,enemy.y,EnemyCookie.width,EnemyCookie.height,
 					shoot.x,shoot.y,shoot.size,shoot.size) then
-			Enemy:handle_attack(shoot.damage, j)
+			EnemyCookie:handle_attack(shoot.damage, j)
 			table.remove(Shoot.all_shoots, i)
 			end
 		end
 	end
 
 	-- collision enemies x sled
-	for _,enemy in pairs(Enemy.all_enemies) do
-		if Utils:has_collision(enemy.x,enemy.y,Enemy.width,Enemy.height,
+	for _,enemy in pairs(EnemyCookie.all_enemies) do
+		if Utils:has_collision(enemy.x,enemy.y,EnemyCookie.width,EnemyCookie.height,
 				Sled.x,Sled.y,Sled.width,Sled.height) then
 			Sled:handle_attack(enemy.damage)
 		end
 	end
 
 	-- collision player x enemies
-	for _,enemy in pairs(Enemy.all_enemies) do
-		if Utils:has_collision(enemy.x,enemy.y,Enemy.width,Enemy.height,
+	for _,enemy in pairs(EnemyCookie.all_enemies) do
+		if Utils:has_collision(enemy.x,enemy.y,EnemyCookie.width,EnemyCookie.height,
 				Player.x,Player.y,Player.width,Player.height) then
 			Player:handle_attack(enemy.damage)
 		end
@@ -101,10 +107,14 @@ function Game:draw_background()
 end
 
 function Game:draw_trees()
-	love.graphics.draw(self.tree, 100, 300)
-	love.graphics.draw(self.tree, 50, 100)
-	love.graphics.draw(self.tree, 400, 250)
-	love.graphics.draw(self.tree, 150, 450)
+	local center = Utils:center(self.tree:getWidth(), self.tree:getHeight())
+
+	love.graphics.draw(self.tree, center.width - 450, center.height + 100)
+	love.graphics.draw(self.tree, center.width - 450, center.height - 300)
+
+
+	love.graphics.draw(self.tree, center.width + 450, center.height + 100)
+	love.graphics.draw(self.tree, center.width + 450, center.height - 300)
 end
 
 return Game

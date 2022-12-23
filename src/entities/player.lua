@@ -18,7 +18,7 @@ local Player = {
 	max_life = 150,
 	current_animation = Animation.santa.idle.down,
 	current_img = Assets.santa.idle.down,
-	status = 'walk'
+	status = 'idle'
 }
 
 function Player:move()
@@ -114,8 +114,8 @@ end
 
 function Player:shoot()
 	local shoot = {
-		x = Player.x,
-		y = Player.y,
+		x = Player.x + (Player.width / 2),
+		y = Player.y + (Player.height / 2) - 10,
 		size = Shoot.default_size,
 		direction = Player.last_direction,
 		damage = Shoot.damage
