@@ -206,14 +206,14 @@ function Player:update(dt)
 	self.current_animation:update(dt)
 end
 
-function Player:collision_enemies()
+function Player:collision_enemies(Enemy)
 	if Player.life <= 0 then
 		return
 	end
 
-	for _,enemy in pairs(EnemyCookie.all_enemies) do
+	for _,enemy in pairs(Enemy.all_enemies) do
 		if enemy.life > 0 then
-			if Utils:has_collision(enemy.x,enemy.y,EnemyCookie.width,EnemyCookie.height,
+			if Utils:has_collision(enemy.x,enemy.y,Enemy.width,Enemy.height,
 				Player.x,Player.y,Player.width,Player.height) then
 				enemy.status = 'attack'
 				Player:handle_attack(enemy.damage)

@@ -161,7 +161,7 @@ function EnemySnowman:draw(qty)
 	end
 
 	for i, enemy in pairs(self.all_enemies) do
-		self:lifebar(enemy.x, enemy.y, enemy.life)
+		-- self:lifebar(enemy.x, enemy.y, enemy.life)
 
 		-- used to remove after death
 		enemy.id = i

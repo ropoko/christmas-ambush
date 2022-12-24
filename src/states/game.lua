@@ -15,7 +15,7 @@ local Game = {
 	number_of_waves = 3,
 	enemies_per_wave = 5,
 	enemies_killed = 0,
-	actual_enemy = EnemyCookie,
+	actual_enemy = EnemySnowman,
 	time_power_up = 11 -- always will consider -1 seconds, so in this case => 10
 }
 
@@ -112,7 +112,7 @@ function Game:draw()
 	self.actual_enemy:collision_sled()
 
 	-- check collision player x enemies
-	Player:collision_enemies()
+	Player:collision_enemies(self.actual_enemy)
 
 	-- check collision player x gift
 	Player:collision_gift()
