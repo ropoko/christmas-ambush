@@ -5,6 +5,8 @@ local Animation = require('src.animations.animation')
 local Assets = require('src.animations.assets')
 local EnemyCookie = require('src.entities.enemy-cookie')
 
+local Gift = require('src.entities.gift')
+
 local Player = {
 	x = Utils:center(20,20).width,
 	y = Utils:center(20,20).height,
@@ -139,9 +141,14 @@ function Player:shoot()
 		x = Player.x + (Player.width / 2),
 		y = Player.y + (Player.height / 2) - 10,
 		size = Shoot.default_size,
-		direction = Player.last_direction,
-		damage = Shoot.damage
+		direction = Player.last_direction
 	}
+
+	if Shoot.is_power_up then
+		shoot.damage = Shoot.power_damage
+	else
+		shoot.damage = Shoot.normal_damage
+	end
 
 	table.insert(Shoot.all_shoots, shoot)
 end
@@ -214,6 +221,13 @@ function Player:collision_enemies()
 				enemy.status = 'walk'
 			end
 		end
+	end
+end
+
+function Player:collision_gift()
+	if Utils:has_collision(self.x,self.y,self.width,self.height,
+			Gift.x,Gift.y,Gift.width,Gift.height) then
+		Gift:collect()
 	end
 end
 

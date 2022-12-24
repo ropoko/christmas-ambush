@@ -7,6 +7,8 @@ function love.load()
 
 	love.filesystem.setIdentity('gamejam')
 
+	SHORT_BASE_FONT = love.graphics.newFont('assets/fonts/Poppins-Regular.ttf', 12)
+
 	BASE_FONT = love.graphics.newFont('assets/fonts/Poppins-Regular.ttf', 20)
 
 	MEDIUM_BASE_FONT = love.graphics.newFont('assets/fonts/Poppins-Regular.ttf', 28)

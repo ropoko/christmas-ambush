@@ -50,8 +50,29 @@ local Animation = {
 			right = anim8.newAnimation(Grid.enemy_cookie.death.right('1-11', 1), 0.2)
 		}
 	},
+	enemy_snowman = {
+		walk = {
+			up = anim8.newAnimation(Grid.enemy_snowman.walk.up('1-6', 1), 0.2),
+			down = anim8.newAnimation(Grid.enemy_snowman.walk.down('1-6', 1), 0.2),
+			left = anim8.newAnimation(Grid.enemy_snowman.walk.left('1-6', 1), 0.2),
+			right = anim8.newAnimation(Grid.enemy_snowman.walk.right('1-6', 1), 0.2)
+		},
+		attack = {
+			up = anim8.newAnimation(Grid.enemy_snowman.attack.up('1-11', 1), 0.2),
+			down = anim8.newAnimation(Grid.enemy_snowman.attack.down('1-12', 1), 0.2),
+			left = anim8.newAnimation(Grid.enemy_snowman.attack.left('1-12', 1), 0.2),
+			right = anim8.newAnimation(Grid.enemy_snowman.attack.right('1-12', 1), 0.2)
+		},
+		death = {
+			up = anim8.newAnimation(Grid.enemy_snowman.death.up('1-6', 1), 0.2),
+			down = anim8.newAnimation(Grid.enemy_snowman.death.down('1-6', 1), 0.2),
+			left = anim8.newAnimation(Grid.enemy_snowman.death.left('1-8', 1), 0.2),
+			right = anim8.newAnimation(Grid.enemy_snowman.death.right('1-8', 1), 0.2)
+		}
+	},
 	sled = anim8.newAnimation(Grid.sled('1-6', 1), 0.2),
-	sled_smoke = anim8.newAnimation(Grid.sled_smoke('1-6', 1), 0.3)
+	sled_smoke = anim8.newAnimation(Grid.sled_smoke('1-6', 1), 0.3),
+	gift = anim8.newAnimation(Grid.gift('1-3', 1), 0.4)
 }
 
 return Animation

@@ -71,7 +71,7 @@ function Utils:randomize_coords()
 			random_y = love.math.random(0,Constants.WINDOW_SETTINGS.height)
 		end
 
-		return random_x, random_y
+		return { random_x = random_x, random_y = random_y}
 end
 
 function Utils:top_center(obj_width, margin_top)
@@ -97,6 +97,13 @@ function Utils:left_bottom(margin_left, margin_bottom)
 		width = margin_left,
 		height = height - margin_bottom
 	}
+end
+
+function Utils:randomize_coords_on_screen()
+	local random_x = love.math.random(0,Constants.WINDOW_SETTINGS.width)
+	local random_y = love.math.random(0,Constants.WINDOW_SETTINGS.height)
+
+	return { random_x = random_x, random_y = random_y}
 end
 
 return Utils

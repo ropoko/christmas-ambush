@@ -11,28 +11,27 @@ local Shoot = {
 	speed = 4,
 	default_size = 5,
 	all_shoots = {},
-	damage = 7,
+	normal_damage = 7,
+	damage = 0,
 	is_power_up = false,
 	power_damage = 14
 }
 
 function Shoot:draw()
 	for _,shoot in pairs(Shoot.all_shoots) do
-		if not shoot.is_power_up then
-			shoot_animation:draw(img_shoot_animation, shoot.x, shoot.y)
-		else
+		if self.is_power_up then
 			power_shoot_animation:draw(img_power_shoot_animation, shoot.x, shoot.y)
+		else
+			shoot_animation:draw(img_shoot_animation, shoot.x, shoot.y)
 		end
 	end
 end
 
 function Shoot:update(dt)
-	for _,shoot in pairs(Shoot.all_shoots) do
-		if not shoot.is_power_up then
-			shoot_animation:update(dt)
-		else
-			power_shoot_animation:update(dt)
-		end
+	if self.is_power_up then
+		power_shoot_animation:update(dt)
+	else
+		shoot_animation:update(dt)
 	end
 end
 

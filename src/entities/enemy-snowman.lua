@@ -127,11 +127,9 @@ function EnemySnowman:spawn(qty)
 	local new_qty = qty - #self.all_enemies
 
 	for _ = 1, new_qty do
-		local random_x, random_y = Utils:randomize_coords()
-
 		local enemy = {
-			x = random_x,
-			y = random_y,
+			x = Utils:randomize_coords().random_x,
+			y = Utils:randomize_coords().random_y,
 			life = self.life,
 			last_life = self.life,
 			damage = self.damage,

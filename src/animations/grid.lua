@@ -50,8 +50,29 @@ local Grid = {
 			right = anim8.newGrid(64, 64, Assets.enemy_cookie.death.right:getWidth(), Assets.enemy_cookie.death.right:getHeight())
 		}
 	},
+	enemy_snowman = {
+		walk = {
+			up = anim8.newGrid(64, 64, Assets.enemy_snowman.walk.up:getWidth(), Assets.enemy_snowman.walk.up:getHeight()),
+			down = anim8.newGrid(64, 64, Assets.enemy_snowman.walk.down:getWidth(), Assets.enemy_snowman.walk.down:getHeight()),
+			left = anim8.newGrid(64, 64, Assets.enemy_snowman.walk.left:getWidth(), Assets.enemy_snowman.walk.left:getHeight()),
+			right = anim8.newGrid(64, 64, Assets.enemy_snowman.walk.right:getWidth(), Assets.enemy_snowman.walk.right:getHeight())
+		},
+		attack = {
+			up = anim8.newGrid(64, 64, Assets.enemy_snowman.attack.up:getWidth(), Assets.enemy_snowman.attack.up:getHeight()),
+			down = anim8.newGrid(64, 64, Assets.enemy_snowman.attack.down:getWidth(), Assets.enemy_snowman.attack.down:getHeight()),
+			left = anim8.newGrid(64, 64, Assets.enemy_snowman.attack.left:getWidth(), Assets.enemy_snowman.attack.left:getHeight()),
+			right = anim8.newGrid(64, 64, Assets.enemy_snowman.attack.right:getWidth(), Assets.enemy_snowman.attack.right:getHeight())
+		},
+		death = {
+			up = anim8.newGrid(64, 64, Assets.enemy_snowman.death.up:getWidth(), Assets.enemy_snowman.death.up:getHeight()),
+			down = anim8.newGrid(64, 64, Assets.enemy_snowman.death.down:getWidth(), Assets.enemy_snowman.death.down:getHeight()),
+			left = anim8.newGrid(64, 64, Assets.enemy_snowman.death.left:getWidth(), Assets.enemy_snowman.death.left:getHeight()),
+			right = anim8.newGrid(64, 64, Assets.enemy_snowman.death.right:getWidth(), Assets.enemy_snowman.death.right:getHeight())
+		}
+	},
 	sled = anim8.newGrid(100,60, Assets.sled:getWidth(), Assets.sled:getHeight()),
-	sled_smoke = anim8.newGrid(20,20, Assets.sled_smoke:getWidth(), Assets.sled_smoke:getHeight())
+	sled_smoke = anim8.newGrid(20,20, Assets.sled_smoke:getWidth(), Assets.sled_smoke:getHeight()),
+	gift = anim8.newGrid(80,80, Assets.gift:getWidth(), Assets.gift:getHeight())
 }
 
 return Grid

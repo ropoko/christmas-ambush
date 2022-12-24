@@ -8,13 +8,15 @@ local Constants = require('src.constants')
 local Elf = require('src.entities.elf')
 local Suit = require('lib.suit')
 local EnemySnowman = require('src.entities.enemy-snowman')
+local Gift = require('src.entities.gift')
 
 local Game = {
 	actual_wave = 1,
 	number_of_waves = 3,
 	enemies_per_wave = 5,
 	enemies_killed = 0,
-	actual_enemy = EnemyCookie
+	actual_enemy = EnemyCookie,
+	time_power_up = 11 -- always will consider -1 seconds, so in this case => 10
 }
 
 -- only one shoot per click
@@ -41,6 +43,10 @@ function Game:load()
 end
 
 function Game:update(dt)
+	if Gift.gift_collected then
+		Game:timer(dt)
+	end
+
 	if TRY_AGAIN == true then
 		Game:try_again()
 	end
@@ -62,12 +68,18 @@ function Game:update(dt)
 	Shoot:update(dt)
 
 	Sled:update(dt)
+
+	Gift:update(dt)
 end
 
 function Game:draw()
+	love.graphics.setLineWidth(1)
+
 	self:draw_background()
 
 	self:draw_wave()
+
+	Gift:draw()
 
 	Sled:draw()
 
@@ -101,6 +113,9 @@ function Game:draw()
 
 	-- check collision player x enemies
 	Player:collision_enemies()
+
+	-- check collision player x gift
+	Player:collision_gift()
 end
 
 function Game:draw_background()
@@ -141,6 +156,8 @@ end
 function Game:try_again()
 	TRY_AGAIN = false
 
+	ENEMIES_KILLED = 0
+
 	Sled.life = Sled.max_life
 	Player.life = Player.max_life
 
@@ -149,6 +166,33 @@ end
 
 function Game:next_wave()
 
+end
+
+function Game:timer(dt)
+	if math.floor(self.time_power_up) == 0 then
+		Gift:new()
+		self.time_power_up = 11
+		-- return
+	end
+
+	self.time_power_up = self.time_power_up - dt
+
+	local seconds = tostring(math.floor(self.time_power_up % 60))
+	local minutes = tostring(math.floor(self.time_power_up / 60))
+
+	if tonumber(seconds) <= 9 then
+		seconds = '0'..seconds
+	end
+	if tonumber(minutes) <= 9 then
+		minutes = '0'..minutes
+	end
+
+	local time = minutes..':'..seconds
+
+	local color = { normal = {fg = {1,1,1}} }
+
+	local center = Utils:center(100, 200)
+	Suit.Label(time, { align='center', font = BASE_FONT, color = color}, center.width, 10, 100, 200)
 end
 
 return Game
