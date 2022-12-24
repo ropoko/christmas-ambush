@@ -13,7 +13,7 @@ local Gift = require('src.entities.gift')
 local Game = {
 	actual_wave = 1,
 	number_of_waves = 3,
-	enemies_per_wave = 5,
+	enemies_per_wave = 10,
 	enemies_killed = 0,
 	actual_enemy = EnemySnowman,
 	time_power_up = 11 -- always will consider -1 seconds, so in this case => 10
@@ -49,6 +49,15 @@ function Game:update(dt)
 
 	if TRY_AGAIN == true then
 		Game:try_again()
+	end
+
+	if ENEMIES_KILLED == self.enemies_per_wave then
+		self:next_wave()
+	end
+
+	if self.actual_wave == self.number_of_waves then
+		self:reset()
+		CONTEXT:change('finish')
 	end
 
 	self.enemies_killed = ENEMIES_KILLED
@@ -103,7 +112,7 @@ function Game:draw()
 	Shoot:draw()
 
 	-- enemies
-	self.actual_enemy:draw(self.enemies_per_wave)
+	self.actual_enemy:draw(self.enemies_per_wave/2)
 
 	-- check collision shoot x enemies
 	self.actual_enemy:collision_shoots()
@@ -165,7 +174,18 @@ function Game:try_again()
 end
 
 function Game:next_wave()
+	self.actual_wave = self.actual_wave + 1
 
+	ENEMIES_KILLED = 0
+	self.enemies_per_wave = 10 * self.actual_wave
+
+	if self.actual_wave == 2 then
+		self.actual_enemy = EnemyCookie
+	end
+
+	if self.actual_wave == 3 then
+		self.actual_enemy = EnemyCookie
+	end
 end
 
 function Game:timer(dt)
@@ -193,6 +213,12 @@ function Game:timer(dt)
 
 	local center = Utils:center(100, 200)
 	Suit.Label(time, { align='center', font = BASE_FONT, color = color}, center.width, 10, 100, 200)
+end
+
+function Game:reset()
+	self.actual_wave = 1
+	self.enemies_per_wave = 10
+	self.actual_enemy = EnemySnowman
 end
 
 return Game
