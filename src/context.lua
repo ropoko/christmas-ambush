@@ -15,7 +15,7 @@ local Context = {
 		video = Video
 	},
 
-	current = 'finish',
+	current = 'initial',
 
 	update = function(self, dt)
 		return self.states[self.current]:update(dt)
