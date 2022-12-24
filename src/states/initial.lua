@@ -50,7 +50,7 @@ function Initial:draw()
 
 	if play_button.hit then
 		music:stop()
-		CONTEXT:change('game')
+		CONTEXT:change('video')
 	end
 
 	Initial:draw_sound_button()

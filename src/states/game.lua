@@ -35,6 +35,12 @@ function love.keypressed(key)
 			end);
 		end
 	end
+
+	if key == 'z' then
+		if INTRO:isPlaying() then
+			INTRO:pause()
+		end
+	end
 end
 
 function Game:load()

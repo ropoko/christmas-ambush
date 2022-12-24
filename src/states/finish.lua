@@ -4,7 +4,8 @@ local Suit = require('lib.suit')
 
 local Finish = {
 	background_img = love.graphics.newImage('assets/img/initial/background-menu.png'),
-	button_exit = love.graphics.newImage('assets/img/pause/button-exit.png')
+	button_exit = love.graphics.newImage('assets/img/pause/button-exit.png'),
+	congrats = love.graphics.newImage('assets/img/congrats.png')
 }
 
 function Finish:load() end
@@ -23,8 +24,10 @@ function Finish:draw()
 		end
 	end
 
-	local center_label = Utils:center(200,200)
-	Suit.Label('Congratulations!', { font=BIGGER_BASE_FONT, color= {normal = {fg = {1,0,0}}} }, center_label.width - 95, center_label.height - 50)
+	-- Suit.Label('Congratulations!', { font=BIGGER_BASE_FONT, color= {normal = {fg = {1,0,0}}} }, center_label.width - 95, center_label.height - 50)
+
+	local center_label = Utils:center(self.congrats:getWidth(),self.congrats:getHeight())
+	love.graphics.draw(self.congrats, (center_label.width + love.graphics.getWidth()) *0.25, center_label.height,0,0.6,0.6)
 
 	local button_center = Utils:center(self.button_exit:getWidth(), self.button_exit:getHeight())
 	local exit = Suit.ImageButton(self.button_exit, button_center.width, button_center.height + 100)

@@ -3,6 +3,7 @@ local Game = require('src.states.game')
 local GameOver = require('src.states.game-over')
 local Pause = require('src.states.pause')
 local Finish = require('src.states.finish')
+local Video = require('src.states.video')
 
 local Context = {
 	states = {
@@ -10,10 +11,11 @@ local Context = {
 		game = Game,
 		game_over = GameOver,
 		pause = Pause,
-		finish = Finish
+		finish = Finish,
+		video = Video
 	},
 
-	current = 'initial',
+	current = 'finish',
 
 	update = function(self, dt)
 		return self.states[self.current]:update(dt)
